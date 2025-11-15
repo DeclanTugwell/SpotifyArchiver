@@ -6,7 +6,7 @@ Used as a University Project. Involves experimenting with different Ai CLI pract
 
 |Practice ID| Practice| Branch Name | Contextual Link (ID) | Completion Time (Hrs) | Error Count | Layer Separation Score | CQRS Compliance | Outcome Summary | Classification|
 |-|-|-|-|-|-|-|-|-|-|
-|QueryPlaylists-ControlA| N/A |  |  |  |  |  |  |  | |
+|QueryPlaylists-ControlA| N/A | 6-QueryPlaylists-ControlA |  | 1h hours 55 minutes | 0 | 100 | PASS | Went smoothly, although felt like I was writting boiletplate at times, with the repeative nature of creating DTOs for the Spotfiy Client output. Architecture is looking very strong. | Pass |
 |QueryPlaylists-ControlB| N/A |  |  |  |  |  |  |  | |
 |QueryPlaylists-Experimental| Persistent Context File for Multi-Turn Accuracy |  |  |  |  |  |  |  | |
 |ArchivePlaylist-ControlA| N/A |  |  |  |  |  |  |  | |

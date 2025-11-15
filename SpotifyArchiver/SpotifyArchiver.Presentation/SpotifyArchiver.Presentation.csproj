@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="10.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\SpotifyArchiver.Application.Abstraction\SpotifyArchiver.Application.Abstraction.csproj" />
   </ItemGroup>
 

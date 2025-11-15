@@ -2,6 +2,7 @@
 {
     public interface ISpotifyService
     {
-        public Task<bool> EnsureAuthenticatedAsync(CancellationToken token);
+        public Task<bool> TryAuthenticateAsync(CancellationToken token);
+        public Task<List<Playlist>> GetPlaylistsAsync();
     }
 }
