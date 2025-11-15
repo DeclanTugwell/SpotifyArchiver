@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SpotifyArchiver.Application.Abstraction\SpotifyArchiver.Application.Abstraction.csproj" />
+  </ItemGroup>
+
 </Project>

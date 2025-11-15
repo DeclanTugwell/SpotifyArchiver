@@ -7,4 +7,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SpotifyArchiver.Application.Implementation\SpotifyArchiver.Application.Implementation.csproj" />
+    <ProjectReference Include="..\SpotifyArchiver.DataAccess.Implementation\SpotifyArchiver.DataAccess.Implementation.csproj" />
+    <ProjectReference Include="..\SpotifyArchiver.Presentation\SpotifyArchiver.Presentation.csproj" />
+  </ItemGroup>
+
 </Project>
