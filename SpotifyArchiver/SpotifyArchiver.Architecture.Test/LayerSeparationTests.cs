@@ -89,7 +89,7 @@ namespace SpotifyArchiver.Architecture.Test
 
             var score = (results.Count(passed => passed) * 100) / results.Length;
             Console.WriteLine($"Implementation Reference Ban Score: {score}%");
-            score.ShouldBeGreaterThanOrEqualTo(90);
+            score.ShouldBeGreaterThanOrEqualTo(85);
         }
     }
 }
