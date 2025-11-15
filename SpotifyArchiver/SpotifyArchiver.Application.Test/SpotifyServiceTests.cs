@@ -10,6 +10,8 @@ namespace SpotifyArchiver.Application.Test
         private readonly string _configPath = "spotify_tokens_test.json";
 
         [Test]
+        [Explicit("Requires SPOTIFY_CLIENT_ID and SPOTIFY_REDIRECT_URI environment variables to be set based on setup within Spotify Developer Portal")]
+        [Category("Spotify Integration")]
         public async Task TestAuthenticationFlow()
         {
             var service = new SpotifyService(_clientId, _redirectUri, _configPath);

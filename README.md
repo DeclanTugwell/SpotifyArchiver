@@ -21,7 +21,7 @@ Used as a University Project. Involves experimenting with different Ai CLI pract
 |DeleteArchivedPlaylist-ControlA| N/A |  |  |  |  |  |  |  | |
 |DeleteArchivedPlaylist-ControlB| N/A |  |  |  |  |  |  |  | |
 |DeleteArchivedPlaylist-Experimental| Agile-Integrated Branching and Review Flow |  |  |  |  |  |  |  | |
-|SpotifyAuthenticationFlow-ControlA| N/A |  |  |  |  |  |  |  | |
+|SpotifyAuthenticationFlow-ControlA| N/A | 11-SpotifyAuthenticationFlow-ControlA |  | 3 hours 16 minutes | 0 | 100 | Pass | Had some trouble getting the PKCE auth flow to work with the Spotfiy API client third party dependancy being used. Other than this was smooth, complete with integration test for the flow, and great alignment with intended development patterns. | Pass |
 |SpotifyAuthenticationFlow-ControlB| N/A |  |  |  |  |  |  |  | |
 |SpotifyAuthenticationFlow-Experimental| Layer-Scoped Sub-Tasking for Abstraction Enforcement |  |  |  |  |  |  |  | |
 
@@ -48,8 +48,7 @@ Used as a University Project. Involves experimenting with different Ai CLI pract
 
 ### 4. Static Analysis - Automated Layer Separation
 
-- Run automated layer separation check  
-  (we'll set up NDepend / Roslyn Analyzer later - produces **Layer Separation Score %**).
+- Run automated layer separation check.
 
 ### 5. Manual CQRS PR Review
 
@@ -67,7 +66,6 @@ Performed during Pull Request peer review stage.
 
 - Observations on ease/difficulty, AI code suggestions, integration pain points.
 - PR review comments.
-- Store artefacts in `/evidence/<feature>` (code, prompts, outputs, test results, static analysis report).
 
 ---
 
