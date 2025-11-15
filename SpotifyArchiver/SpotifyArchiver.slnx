@@ -1,6 +1,7 @@
 <Solution>
   <Folder Name="/test/">
     <Project Path="SpotifyArchiver.Application.Test/SpotifyArchiver.Application.Test.csproj" Id="604af09b-fc46-439e-9278-54b9cae49957" />
+    <Project Path="SpotifyArchiver.Architecture.Test/SpotifyArchiver.Architecture.Test.csproj" Id="5ffd1c2b-a14a-413d-b4d3-a1d4380a3ca9" />
     <Project Path="SpotifyArchiver.DataAccess.Test/SpotifyArchiver.DataAccess.Test.csproj" Id="c255b1ee-c9b3-4160-93ee-023ae31d33d4" />
     <Project Path="SpotifyArchiver.Presentation.Test/SpotifyArchiver.Presentation.Test.csproj" Id="509b2b17-adb6-42a4-9744-bb2489520c23" />
   </Folder>
