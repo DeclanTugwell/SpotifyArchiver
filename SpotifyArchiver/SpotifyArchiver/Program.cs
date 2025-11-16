@@ -31,7 +31,8 @@ IHostBuilder builder = Host.CreateDefaultBuilder(args)
         services.AddSingleton<OperationHandler>(provider =>
         {
             var spotify = provider.GetRequiredService<ISpotifyService>();
-            return OperationHandler.Build(spotify);
+            var repo = provider.GetRequiredService<IPlaylistRepository>();
+            return OperationHandler.Build(spotify, repo);
         });
     });
 

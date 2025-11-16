@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SpotifyArchiver.Application.Test\SpotifyArchiver.Application.Test.csproj" />
     <ProjectReference Include="..\SpotifyArchiver.Presentation\SpotifyArchiver.Presentation.csproj" />
   </ItemGroup>
 

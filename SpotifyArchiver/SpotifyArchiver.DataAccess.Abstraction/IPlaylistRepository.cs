@@ -5,5 +5,7 @@ namespace SpotifyArchiver.DataAccess.Abstraction
     public interface IPlaylistRepository
     {
         Task AddAsync(Playlist playlist);
+
+        Task<List<Playlist>> FetchAllAsync();
     }
 }

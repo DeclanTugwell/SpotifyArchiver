@@ -1,4 +1,5 @@
-﻿using SpotifyArchiver.DataAccess.Abstraction;
+﻿using Microsoft.EntityFrameworkCore;
+using SpotifyArchiver.DataAccess.Abstraction;
 using SpotifyArchiver.DataAccess.Abstraction.entities;
 
 namespace SpotifyArchiver.DataAccess.Implementation
@@ -9,6 +10,11 @@ namespace SpotifyArchiver.DataAccess.Implementation
         {
             context.Playlists.Add(playlist);
             await context.SaveChangesAsync();
+        }
+
+        public async Task<List<Playlist>> FetchAllAsync()
+        {
+            return await context.Playlists.ToListAsync();
         }
     }
 }

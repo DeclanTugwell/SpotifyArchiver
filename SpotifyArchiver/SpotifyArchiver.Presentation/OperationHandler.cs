@@ -1,4 +1,5 @@
 ﻿using SpotifyArchiver.Application.Abstraction;
+using SpotifyArchiver.DataAccess.Abstraction;
 
 namespace SpotifyArchiver.Presentation
 {
@@ -6,19 +7,21 @@ namespace SpotifyArchiver.Presentation
     {
         private readonly List<Operation> _operations = [];
         private readonly ISpotifyService _spotifyService;
+        private readonly IPlaylistRepository _playlistRepository;
 
-        public static OperationHandler Build(ISpotifyService spotifyService)
+        public static OperationHandler Build(ISpotifyService spotifyService, IPlaylistRepository playlistRepository)
         {
-            var operationHandler = new OperationHandler(spotifyService);
+            var operationHandler = new OperationHandler(spotifyService, playlistRepository);
             operationHandler.AddOperation("Help", "Show descriptions for all available operations.", Task () => ShowHelp(operationHandler._operations));
-            operationHandler.AddOperation("List Playlists", "Fetch and display all playlists from the authenticated Spotify account.", async Task () => await QueryPlaylists(spotifyService));
-            operationHandler.AddOperation("Archive Playlist", "Archives playlist and all tracks into local database.", async Task () => await ArchivePlaylist(spotifyService));
+            operationHandler.AddOperation("List Playlists", "Fetch and display all playlists from the authenticated Spotify account.", async Task () => await operationHandler.QueryPlaylists());
+            operationHandler.AddOperation("Archive Playlist", "Archives playlist and all tracks into local database.", async Task () => await operationHandler.ArchivePlaylist());
+            operationHandler.AddOperation("List Archived Playlists", "Lists all the playlists archived in the local database.", async Task () => await operationHandler.QueryArchivedPlaylists());
             return operationHandler;
         }
 
         public void ShowAvailableOperations()
         {
-            Console.WriteLine("Available Operations:\n");
+            Console.WriteLine("Available Operations:\n\n");
 
             for (var count = 0; _operations.Count > count; count ++)
             {
@@ -48,9 +51,10 @@ namespace SpotifyArchiver.Presentation
             return await _spotifyService.TryAuthenticateAsync(token);
         }
 
-        private OperationHandler(ISpotifyService spotifyService)
+        private OperationHandler(ISpotifyService spotifyService , IPlaylistRepository playlistRepository)
         {
             _spotifyService = spotifyService;
+            _playlistRepository = playlistRepository;
         }
 
         private void AddOperation(string operationName, string operationDescription, Func<Task> operation)
@@ -69,17 +73,17 @@ namespace SpotifyArchiver.Presentation
             return Task.CompletedTask;
         }
 
-        private static async Task QueryPlaylists(ISpotifyService spotifyService)
+        private async Task QueryPlaylists()
         {
-            var playlists = await spotifyService.GetPlaylistsAsync();
-            Console.WriteLine("Your Playlists:\n");
+            var playlists = await _spotifyService.GetPlaylistsAsync();
+            Console.WriteLine("Your Playlists:\n\n");
             foreach (var playlist in playlists)
             {
-                Console.WriteLine($"Id: {playlist.SpotifyId}\n{playlist.Name}");
+                Console.WriteLine($"Id: {playlist.SpotifyId}\n{playlist.Name}\n");
             }
         }
 
-        private static async Task ArchivePlaylist(ISpotifyService spotifyService)
+        private async Task ArchivePlaylist()
         {
             Console.WriteLine("Enter Playlist Id to Archive\n");
 
@@ -89,9 +93,21 @@ namespace SpotifyArchiver.Presentation
                 playlistId = Console.ReadLine();
             }
 
-            await spotifyService.ArchivePlaylist(playlistId);
+            await _spotifyService.ArchivePlaylist(playlistId);
 
             Console.WriteLine("Playlist archived successfully.\n");
+        }
+
+        private async Task QueryArchivedPlaylists()
+        {
+            var playlists = await _playlistRepository.FetchAllAsync();
+
+            Console.WriteLine("Your Archived Playlists:\n");
+
+            foreach (var playlist in playlists)
+            {
+                Console.WriteLine($"Id: {playlist.PlaylistId}\nSpotifyId: {playlist.SpotifyId}\n{playlist.Name}\n");
+            }
         }
     }
 }
