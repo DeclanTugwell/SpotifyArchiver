@@ -12,9 +12,9 @@ Used as a University Project. Involves experimenting with different Ai CLI pract
 |ArchivePlaylist-ControlA| N/A | 7-ArchivePlaylist-ControlA | N/A | 3 hours 8 minutes | 0 | 100 | PASS | Setting up the Entity Framework Database came with some issues, mainly with the migration recognision, as the runtime was pointing to a different db. A lot of the work felt repetitive, i.e setting up the models based on the data. | PASS |
 |ArchivePlaylist-ControlB| N/A |  |  |  |  |  |  |  | |
 |ArchivePlaylist-Experimental| Prompt Scaffolding for Complex Feature Delivery | 7-ArchivePlaylist-Experimental, 7-ArchivePlaylist-Experimental-ApplicationLayer, 7-ArchivePlaylist-Experimental-DataLayer, 7-ArchivePlaylist-Experimental-Testing |  |  |  |  |  |  | |
-|FetchPlaylistDetails-ControlA| N/A |  |  |  |  |  |  |  | |
-|FetchPlaylistDetails-ControlB| N/A |  |  |  |  |  |  |  | |
-|FetchPlaylistDetails-Experimental| Code Explanation and Variant Generation |  |  |  |  |  |  |  | |
+|FetchPlaylistDetails-ControlA| N/A | 8-FetchPlaylistDetails-ControlA | 23 minutes | 0 | 100 | PASS | Very quick feature to implement and test thanks to having the framework and architecture in a good spot. |  | |
+|FetchPlaylistDetails-ControlB| N/A | 8-FetchPlaylistDetails-ControlB |  |  |  |  |  |  | |
+|FetchPlaylistDetails-Experimental| Code Explanation and Variant Generation | 8-FetchPlaylistDetails-Experimental |  |  |  |  |  |  | |
 |ListSongsFromArchive-ControlA| N/A |  |  |  |  |  |  |  | |
 |ListSongsFromArchive-ControlB| N/A |  |  |  |  |  |  |  | |
 |ListSongsFromArchive-Experimental| Assertion-First Prompting for Test-Driven Development |  |  |  |  |  |  |  | |
