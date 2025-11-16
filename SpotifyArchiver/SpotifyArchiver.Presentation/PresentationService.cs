@@ -7,20 +7,27 @@ namespace SpotifyArchiver.Presentation
     {
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            while (stoppingToken.IsCancellationRequested == false)
+            if (await operationHandler.TryAuthenticate(stoppingToken) == false)
             {
-                try
+                Console.WriteLine("Authentication Failed.");
+            }
+            else
+            {
+                while (stoppingToken.IsCancellationRequested == false)
                 {
-                    operationHandler.ShowAvailableOperations();
-                    await operationHandler.AwaitOperation();
-                }
-                catch (OperationCanceledException)
-                {
-                    break;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.ToString());
+                    try
+                    {
+                        operationHandler.ShowAvailableOperations();
+                        await operationHandler.AwaitOperation();
+                    }
+                    catch (OperationCanceledException)
+                    {
+                        break;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
                 }
             }
 

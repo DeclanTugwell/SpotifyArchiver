@@ -1,4 +1,5 @@
 ﻿using SpotifyArchiver.Application.Abstraction;
+using SpotifyArchiver.DataAccess.Abstraction.entities;
 
 namespace SpotifyArchiver.Presentation.Test
 {
@@ -18,8 +19,17 @@ namespace SpotifyArchiver.Presentation.Test
             GetPlaylistsCalled = true;
             return Task.FromResult(new List<Playlist>
             {
-                new ("123", "Test Playlist", 42)
+                new ()
+                {
+                    Name = "Test Playlist",
+                    PlaylistId = 123
+                }
             });
+        }
+
+        public Task ArchivePlaylist(string playlistId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

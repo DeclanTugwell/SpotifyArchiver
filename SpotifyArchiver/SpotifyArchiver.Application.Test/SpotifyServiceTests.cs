@@ -14,7 +14,7 @@ namespace SpotifyArchiver.Application.Test
         [Test]
         public async Task Test_AuthenticationFlow()
         {
-            var service = new SpotifyService(_clientId, _redirectUri, _configPath);
+            var service = new SpotifyService(_clientId, _redirectUri, _configPath, new FakePlaylistRepository());
             var authenticated = await service.TryAuthenticateAsync(CancellationToken.None);
             authenticated.ShouldBeTrue();
             File.Exists(_configPath).ShouldBeTrue();
@@ -23,10 +23,40 @@ namespace SpotifyArchiver.Application.Test
         [Test]
         public async Task Test_WhenGetPlaylistsAsyncCalled_ThenPlaylistsReturned()
         {
-            var service = new SpotifyService(_clientId, _redirectUri, _configPath);
+            var service = new SpotifyService(_clientId, _redirectUri, _configPath, new FakePlaylistRepository());
             (await service.TryAuthenticateAsync(CancellationToken.None)).ShouldBeTrue();
             var playlists = await service.GetPlaylistsAsync();
             playlists.ShouldNotBeEmpty();
+        }
+
+        [Test]
+        public async Task Test_WhenArchivePlaylistCalled_WithValidPlaylistId_ThenPlaylistsArchived()
+        {
+            var repo = new FakePlaylistRepository();
+            var service = new SpotifyService(_clientId, _redirectUri, _configPath, repo);
+            (await service.TryAuthenticateAsync(CancellationToken.None)).ShouldBeTrue();
+            var playlists = await service.GetPlaylistsAsync();
+            playlists.ShouldNotBeEmpty();
+            var firstPlaylist = playlists.First();
+            await service.ArchivePlaylist(firstPlaylist.SpotifyId);
+            repo.ArchivedPlaylists.ShouldContain(p => p.SpotifyId == firstPlaylist.SpotifyId);
+        }
+
+        [Test]
+        public async Task Test_WhenArchivePlaylistCalled_WithInvalidPlaylistId_ThenPlaylistsArchived()
+        {
+            var exceptionThrown = false;
+            var service = new SpotifyService(_clientId, _redirectUri, _configPath, new FakePlaylistRepository());
+            (await service.TryAuthenticateAsync(CancellationToken.None)).ShouldBeTrue();
+            try
+            {
+                await service.ArchivePlaylist("");
+            }
+            catch
+            {
+                exceptionThrown = true;
+            }
+            exceptionThrown.ShouldBeTrue();
         }
     }
 }

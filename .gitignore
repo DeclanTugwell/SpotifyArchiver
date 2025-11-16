@@ -5,3 +5,5 @@
 /SpotifyArchiver/.vs
 **/obj
 **/bin
+/SpotifyArchiver/SpotifyArchiver/spotify_tokens.json
+/SpotifyArchiver/SpotifyArchiver/music.db

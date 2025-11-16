@@ -25,8 +25,8 @@ namespace SpotifyArchiver.Presentation.Test
 
             var operations = operationsField.GetValue(handler) as List<Operation>;
             operations.ShouldNotBeNull();
-            operations.Count.ShouldBe(2);
-            operations.Select(o => o.Name).ShouldBe(["Help", "List Playlists"]);
+            operations.Count.ShouldBe(3);
+            operations.Select(o => o.Name).ShouldBe(["Help", "List Playlists", "Archive Playlist"]);
         }
 
         [Test]
