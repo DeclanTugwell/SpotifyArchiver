@@ -22,7 +22,9 @@ namespace SpotifyArchiver.Presentation.Test
                 new ()
                 {
                     Name = "Test Playlist",
-                    PlaylistId = 123
+                    PlaylistId = 123,
+                    SpotifyId = "test_playlist_id",
+                    SpotifyUri = "spotify:playlist:test_playlist_id"
                 }
             });
         }

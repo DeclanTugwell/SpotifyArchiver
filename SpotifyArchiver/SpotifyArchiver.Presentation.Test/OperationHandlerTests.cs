@@ -23,7 +23,7 @@ namespace SpotifyArchiver.Presentation.Test
             var operationsField = typeof(OperationHandler)
                 .GetField("_operations", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
 
-            var operations = operationsField.GetValue(handler) as List<Operation>;
+            var operations = operationsField!.GetValue(handler) as List<Operation>;
             operations.ShouldNotBeNull();
             operations.Count.ShouldBe(3);
             operations.Select(o => o.Name).ShouldBe(["Help", "List Playlists", "Archive Playlist"]);
@@ -35,7 +35,7 @@ namespace SpotifyArchiver.Presentation.Test
             var handler = OperationHandler.Build(_spotifyService);
             var opField = typeof(OperationHandler).GetField("_operations", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
 
-            var operations = opField.GetValue(handler) as List<Operation>;
+            var operations = opField!.GetValue(handler) as List<Operation>;
             operations.ShouldNotBeNull();
 
             using var sw = new StringWriter();
@@ -91,12 +91,12 @@ namespace SpotifyArchiver.Presentation.Test
         {
             var handler = OperationHandler.Build(_spotifyService);
             var opField = typeof(OperationHandler).GetField("_operations", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-            var operations = (List<Operation>)opField.GetValue(handler);
+            var operations = (List<Operation>)opField!.GetValue(handler)!;
 
             await using var sw = new StringWriter();
             Console.SetOut(sw);
 
-            await operations[0].Execute();
+            await operations![0].Execute();
 
             var output = sw.ToString();
             output.ShouldContain("Operation Descriptions:");
