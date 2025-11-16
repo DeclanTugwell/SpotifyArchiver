@@ -6,12 +6,12 @@ Used as a University Project. Involves experimenting with different Ai CLI pract
 
 |Practice ID| Practice| Branch Name | Contextual Link (ID) | Completion Time (Hrs) | Error Count | Layer Separation Score | CQRS Compliance | Outcome Summary | Classification|
 |-|-|-|-|-|-|-|-|-|-|
-|QueryPlaylists-ControlA| N/A | 6-QueryPlaylists-ControlA |  | 1h hours 55 minutes | 0 | 100 | PASS | Went smoothly, although felt like I was writting boiletplate at times, with the repeative nature of creating DTOs for the Spotfiy Client output. Architecture is looking very strong. | Pass |
+|QueryPlaylists-ControlA| N/A | 6-QueryPlaylists-ControlA | N/A | 1h hours 55 minutes | 0 | 100 | PASS | Went smoothly, although felt like I was writting boiletplate at times, with the repeative nature of creating DTOs for the Spotfiy Client output. Architecture is looking very strong. | Pass |
 |QueryPlaylists-ControlB| N/A |  |  |  |  |  |  |  | |
 |QueryPlaylists-Experimental| Persistent Context File for Multi-Turn Accuracy |  |  |  |  |  |  |  | |
-|ArchivePlaylist-ControlA| N/A |  |  |  |  |  |  |  | |
+|ArchivePlaylist-ControlA| N/A | 7-ArchivePlaylist-ControlA | N/A | 3 hours 8 minutes | 0 | 100 | PASS | Setting up the Entity Framework Database came with some issues, mainly with the migration recognision, as the runtime was pointing to a different db. A lot of the work felt repetitive, i.e setting up the models based on the data. | PASS |
 |ArchivePlaylist-ControlB| N/A |  |  |  |  |  |  |  | |
-|ArchivePlaylist-Experimental| Prompt Scaffolding for Complex Feature Delivery |  |  |  |  |  |  |  | |
+|ArchivePlaylist-Experimental| Prompt Scaffolding for Complex Feature Delivery | 7-ArchivePlaylist-Experimental, 7-ArchivePlaylist-Experimental-ApplicationLayer, 7-ArchivePlaylist-Experimental-DataLayer, 7-ArchivePlaylist-Experimental-Testing |  |  |  |  |  |  | |
 |FetchPlaylistDetails-ControlA| N/A |  |  |  |  |  |  |  | |
 |FetchPlaylistDetails-ControlB| N/A |  |  |  |  |  |  |  | |
 |FetchPlaylistDetails-Experimental| Code Explanation and Variant Generation |  |  |  |  |  |  |  | |
@@ -21,7 +21,7 @@ Used as a University Project. Involves experimenting with different Ai CLI pract
 |DeleteArchivedPlaylist-ControlA| N/A |  |  |  |  |  |  |  | |
 |DeleteArchivedPlaylist-ControlB| N/A |  |  |  |  |  |  |  | |
 |DeleteArchivedPlaylist-Experimental| Agile-Integrated Branching and Review Flow |  |  |  |  |  |  |  | |
-|SpotifyAuthenticationFlow-ControlA| N/A | 11-SpotifyAuthenticationFlow-ControlA |  | 3 hours 16 minutes | 0 | 100 | Pass | Had some trouble getting the PKCE auth flow to work with the Spotfiy API client third party dependancy being used. Other than this was smooth, complete with integration test for the flow, and great alignment with intended development patterns. | Pass |
+|SpotifyAuthenticationFlow-ControlA| N/A | 11-SpotifyAuthenticationFlow-ControlA | N/A | 3 hours 16 minutes | 0 | 100 | Pass | Had some trouble getting the PKCE auth flow to work with the Spotfiy API client third party dependancy being used. Other than this was smooth, complete with integration test for the flow, and great alignment with intended development patterns. | Pass |
 |SpotifyAuthenticationFlow-ControlB| N/A |  |  |  |  |  |  |  | |
 |SpotifyAuthenticationFlow-Experimental| Layer-Scoped Sub-Tasking for Abstraction Enforcement |  |  |  |  |  |  |  | |
 
