@@ -7,7 +7,7 @@ Used as a University Project. Involves experimenting with different Ai CLI pract
 |Practice ID| Practice| Branch Name | Contextual Link (ID) | Completion Time (Hrs) | Error Count | Layer Separation Score | CQRS Compliance | Outcome Summary | Classification|
 |-|-|-|-|-|-|-|-|-|-|
 |QueryPlaylists-ControlA| N/A |  |  |  |  |  |  |  | |
-|QueryPlaylists-ControlB| N/A |  |  |  |  |  |  |  | |
+|QueryPlaylists-ControlB| N/A | 6-QueryPlaylists-ControlB | N/A | 1 hour 5 minutes | 1 | Pass (100) | PASS | The CLI provides a solution that fit the architectural requirements and the functional requirements of the feature. The implementation of the GetPlaylistsAsync function was computationally slow, taking multiple minutes to fetch all of the users playlists. A compilation error occured when trying to perform pagination on the playlists request on the first run, although this was fixed on the second pass through.| PASS |
 |QueryPlaylists-Experimental| Persistent Context File for Multi-Turn Accuracy |  |  |  |  |  |  |  | |
 |ArchivePlaylist-ControlA| N/A |  |  |  |  |  |  |  | |
 |ArchivePlaylist-ControlB| N/A |  |  |  |  |  |  |  | |
