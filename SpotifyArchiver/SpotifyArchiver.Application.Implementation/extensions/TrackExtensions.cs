@@ -7,7 +7,7 @@ namespace SpotifyArchiver.Application.Implementation.extensions
     {
         public static Track? ToTrack(this PlaylistTrack<IPlayableItem> spotifyTrack)
         {
-            if (spotifyTrack.Track is FullTrack track)
+            if (spotifyTrack.Track is FullTrack { Id: not null, Name: not null, Uri: not null } track)
             {
                 return new Track
                 {

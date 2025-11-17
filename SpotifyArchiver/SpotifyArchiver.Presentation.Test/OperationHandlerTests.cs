@@ -29,8 +29,8 @@ namespace SpotifyArchiver.Presentation.Test
 
             var operations = operationsField!.GetValue(handler) as List<Operation>;
             operations.ShouldNotBeNull();
-            operations.Count.ShouldBe(4);
-            operations.Select(o => o.Name).ShouldBe(["Help", "List Playlists", "Archive Playlist", "List Archived Playlists"]);
+            operations.Count.ShouldBe(5);
+            operations.Select(o => o.Name).ShouldBe(["Help", "List Playlists", "Archive Playlist", "List Archived Playlists", "List Songs from Archived Playlist"]);
         }
 
         [Test]
@@ -129,6 +129,46 @@ namespace SpotifyArchiver.Presentation.Test
             var output = sw.ToString();
             output.ShouldContain("Your Archived Playlists:");
             output.ShouldContain(playlist.SpotifyId);
+            output.ShouldContain(playlist.Name);
+        }
+
+        [Test]
+        public async Task QueryArchivedPlaylistSongs_Should_ListSongs()
+        {
+            var track = new Track()
+            {
+                ArtistName = "Test Artist",
+                Name = "Test Track",
+                SpotifyId = "track1",
+                SpotifyUri = "spotify:track:track1",
+                TrackId = 0
+            };
+            var playlist = new Playlist()
+            {
+                PlaylistId = 0,
+                Name = "Archived Playlist 1",
+                SpotifyId = "archived1",
+                SpotifyUri = "spotify:playlist:archived1",
+                Tracks = [track]
+            };
+            _playlistRepository.ArchivedPlaylists.Add(playlist);
+
+            var handler = OperationHandler.Build(_spotifyService, _playlistRepository);
+            var opField = typeof(OperationHandler).GetField("_operations", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            var operations = (List<Operation>)opField!.GetValue(handler)!;
+
+            using var sr = new StringReader("0");
+            await using var sw = new StringWriter();
+            Console.SetIn(sr);
+            Console.SetOut(sw);
+
+            await operations[4].Execute();
+
+            var output = sw.ToString();
+            output.ShouldContain("Songs in Playlist:");
+            output.ShouldContain(track.Name);
+            output.ShouldContain(track.ArtistName);
+            output.ShouldContain(track.SpotifyUri);
             output.ShouldContain(playlist.Name);
         }
     }

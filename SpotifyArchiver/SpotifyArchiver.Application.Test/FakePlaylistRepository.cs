@@ -17,5 +17,10 @@ namespace SpotifyArchiver.Application.Test
         {
             return Task.FromResult(ArchivedPlaylists);
         }
+
+        public Task<Playlist?> FetchByIdAsync(int playlistId)
+        {
+            return Task.FromResult(ArchivedPlaylists.FirstOrDefault(p => p.PlaylistId == playlistId));
+        }
     }
 }

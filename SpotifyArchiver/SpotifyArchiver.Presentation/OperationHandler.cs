@@ -16,6 +16,7 @@ namespace SpotifyArchiver.Presentation
             operationHandler.AddOperation("List Playlists", "Fetch and display all playlists from the authenticated Spotify account.", async Task () => await operationHandler.QueryPlaylists());
             operationHandler.AddOperation("Archive Playlist", "Archives playlist and all tracks into local database.", async Task () => await operationHandler.ArchivePlaylist());
             operationHandler.AddOperation("List Archived Playlists", "Lists all the playlists archived in the local database.", async Task () => await operationHandler.QueryArchivedPlaylists());
+            operationHandler.AddOperation("List Songs from Archived Playlist", "Fetches and displays all songs from a specified archived playlist.", async Task () => await operationHandler.FetchAllSongsFromArchivedPlaylist());
             return operationHandler;
         }
 
@@ -107,6 +108,36 @@ namespace SpotifyArchiver.Presentation
             foreach (var playlist in playlists)
             {
                 Console.WriteLine($"Id: {playlist.PlaylistId}\nSpotifyId: {playlist.SpotifyId}\n{playlist.Name}\n");
+            }
+        }
+
+        private async Task FetchAllSongsFromArchivedPlaylist()
+        {
+            await QueryArchivedPlaylists();
+
+            Console.WriteLine("Enter Archived Playlist Id\n");
+
+            int playlistId = -1;
+            while (playlistId < 0)
+            {
+                playlistId = int.Parse(Console.ReadLine() ?? "-1");
+            }
+
+            var playlist = await _playlistRepository.FetchByIdAsync(playlistId);
+
+            if (playlist == null)
+            {
+                Console.WriteLine("No playlist found matching that ID.");
+                return;
+            }
+
+            Console.WriteLine($"Songs in Playlist: {playlist.Name}\n");
+
+            var count = 0;
+            foreach (var track in playlist.Tracks)
+            {
+                Console.WriteLine($"{count}. {track.Name} by {track.ArtistName}\n{track.SpotifyUri}\n\n");
+                count++;
             }
         }
     }
