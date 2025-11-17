@@ -116,5 +116,16 @@ namespace SpotifyArchiver.Application.Implementation
 
             return tracks;
         }
+
+        public async Task<List<Track>> GetArchivedSongs(int playlistDbId)
+        {
+            var playlist = await _playlistRepository.GetByIdAsync(playlistDbId);
+            if (playlist == null)
+            {
+                throw new InvalidOperationException("Archived playlist could not be found.");
+            }
+
+            return playlist.Tracks.ToList();
+        }
     }
 }

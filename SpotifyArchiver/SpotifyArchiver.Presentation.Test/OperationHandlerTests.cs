@@ -29,8 +29,8 @@ namespace SpotifyArchiver.Presentation.Test
 
             var operations = operationsField!.GetValue(handler) as List<Operation>;
             operations.ShouldNotBeNull();
-            operations.Count.ShouldBe(4);
-            operations.Select(o => o.Name).ShouldBe(["Help", "List Playlists", "Archive Playlist", "List Archived Playlists"]);
+            operations.Count.ShouldBe(5);
+            operations.Select(o => o.Name).ShouldBe(["Help", "List Playlists", "Archive Playlist", "List Archived Playlists", "Get Archived Songs"]);
         }
 
         [Test]
@@ -130,6 +130,43 @@ namespace SpotifyArchiver.Presentation.Test
             output.ShouldContain("Your Archived Playlists:");
             output.ShouldContain(playlist.SpotifyId);
             output.ShouldContain(playlist.Name);
+        }
+
+        [Test]
+        public async Task QueryArchivedSongs_Should_ListSongs()
+        {
+            var playlistDbId = 1;
+            var playlist = new Playlist()
+            {
+                PlaylistId = playlistDbId,
+                Name = "Archived Playlist 1",
+                SpotifyId = "archived1",
+                SpotifyUri = "spotify:playlist:archived1",
+                Tracks = new List<Track>
+                {
+                    new() { Name = "Test Song 1", ArtistName = "Test Artist 1", SpotifyId = "spotify:track:1", SpotifyUri = "uri1" },
+                    new() { Name = "Test Song 2", ArtistName = "Test Artist 2", SpotifyId = "spotify:track:2", SpotifyUri = "uri2" },
+                }
+            };
+            _playlistRepository.ArchivedPlaylists.Add(playlist);
+
+            var handler = OperationHandler.Build(_spotifyService, _playlistRepository);
+            var opField = typeof(OperationHandler).GetField("_operations", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            var operations = (List<Operation>)opField!.GetValue(handler)!;
+
+            using var sr = new StringReader(playlistDbId.ToString());
+            await using var sw = new StringWriter();
+            Console.SetIn(sr);
+            Console.SetOut(sw);
+
+            await operations[4].Execute();
+
+            var output = sw.ToString();
+            output.ShouldContain("Archived Songs:");
+            output.ShouldContain("Test Song 1");
+            output.ShouldContain("Test Artist 1");
+            output.ShouldContain("Test Song 2");
+            output.ShouldContain("Test Artist 2");
         }
     }
 }

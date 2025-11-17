@@ -16,7 +16,7 @@ Used as a University Project. Involves experimenting with different Ai CLI pract
 |FetchPlaylistDetails-ControlB| N/A | 8-FetchPlaylistDetails-ControlB |  |  |  |  |  |  | |
 |FetchPlaylistDetails-Experimental| Code Explanation and Variant Generation | 8-FetchPlaylistDetails-Experimental |  |  |  |  |  |  | |
 |ListSongsFromArchive-ControlA| N/A |  |  |  |  |  |  |  | |
-|ListSongsFromArchive-ControlB| N/A |  |  |  |  |  |  |  | |
+|ListSongsFromArchive-ControlB| N/A | 9-ListSongsFromArchive-ControlB | N/A | 20 minutes | 0 | Pass (100) | Fail | The feature was successfully implemented with the CLEAN architecture being adheared to. However, the CQRS architecture was only partially adheared to as whilst the operation was implemented as a query path the query takes goes through the Application layer when it should be traversing the layers asymmetrically when compared to the rest of the system, going from the Presentation layer directly to the Data Access layer. | Fail |
 |ListSongsFromArchive-Experimental| Assertion-First Prompting for Test-Driven Development |  |  |  |  |  |  |  | |
 |DeleteArchivedPlaylist-ControlA| N/A |  |  |  |  |  |  |  | |
 |DeleteArchivedPlaylist-ControlB| N/A |  |  |  |  |  |  |  | |

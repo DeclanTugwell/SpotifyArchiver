@@ -31,7 +31,16 @@ namespace SpotifyArchiver.Presentation.Test
 
         public Task ArchivePlaylist(string playlistId)
         {
-            throw new NotImplementedException();
+            return Task.CompletedTask;
+        }
+
+        public Task<List<Track>> GetArchivedSongs(int playlistDbId)
+        {
+            return Task.FromResult(new List<Track>
+            {
+                new() { Name = "Test Song 1", ArtistName = "Test Artist 1", SpotifyId = "spotify:track:1", SpotifyUri = "uri1" },
+                new() { Name = "Test Song 2", ArtistName = "Test Artist 2", SpotifyId = "spotify:track:2", SpotifyUri = "uri2" },
+            });
         }
     }
 }

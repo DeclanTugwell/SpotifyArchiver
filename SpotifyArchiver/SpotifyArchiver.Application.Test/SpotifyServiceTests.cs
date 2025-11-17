@@ -59,4 +59,52 @@ namespace SpotifyArchiver.Application.Test
             exceptionThrown.ShouldBeTrue();
         }
     }
+
+    [Category("Unit")]
+    public class SpotifyServiceUnitTests
+    {
+        [Test]
+        public async Task Test_GetArchivedSongs_ShouldReturnSongs_WhenPlaylistExists()
+        {
+            // Arrange
+            var repo = new FakePlaylistRepository();
+            var playlistDbId = 1;
+            var tracks = new List<DataAccess.Abstraction.entities.Track>
+            {
+                new() { Name = "Song 1", ArtistName = "Artist 1", SpotifyId = "spotify:track:1", SpotifyUri = "uri1" },
+                new() { Name = "Song 2", ArtistName = "Artist 2", SpotifyId = "spotify:track:2", SpotifyUri = "uri2" },
+            };
+            
+            await repo.AddAsync(new DataAccess.Abstraction.entities.Playlist
+            {
+                PlaylistId = playlistDbId,
+                SpotifyId = "test_playlist",
+                Name = "Test Playlist",
+                SpotifyUri = "uri",
+                Tracks = tracks
+            });
+            
+            var service = new SpotifyService("client_id", "redirect_uri", "config.json", repo);
+
+            // Act
+            var result = await service.GetArchivedSongs(playlistDbId);
+
+            // Assert
+            result.ShouldNotBeNull();
+            result.Count.ShouldBe(2);
+            result[0].Name.ShouldBe("Song 1");
+            result[1].Name.ShouldBe("Song 2");
+        }
+        
+        [Test]
+        public async Task Test_GetArchivedSongs_ShouldThrowException_WhenPlaylistDoesNotExist()
+        {
+            // Arrange
+            var repo = new FakePlaylistRepository();
+            var service = new SpotifyService("client_id", "redirect_uri", "config.json", repo);
+
+            // Act & Assert
+            await Should.ThrowAsync<InvalidOperationException>(async () => await service.GetArchivedSongs(999));
+        }
+    }
 }

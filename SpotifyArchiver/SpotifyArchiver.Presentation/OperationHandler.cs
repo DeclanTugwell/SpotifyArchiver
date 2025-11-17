@@ -16,6 +16,7 @@ namespace SpotifyArchiver.Presentation
             operationHandler.AddOperation("List Playlists", "Fetch and display all playlists from the authenticated Spotify account.", async Task () => await operationHandler.QueryPlaylists());
             operationHandler.AddOperation("Archive Playlist", "Archives playlist and all tracks into local database.", async Task () => await operationHandler.ArchivePlaylist());
             operationHandler.AddOperation("List Archived Playlists", "Lists all the playlists archived in the local database.", async Task () => await operationHandler.QueryArchivedPlaylists());
+            operationHandler.AddOperation("Get Archived Songs", "Gets all songs from an archived playlist.", async Task () => await operationHandler.QueryArchivedSongs());
             return operationHandler;
         }
 
@@ -107,6 +108,31 @@ namespace SpotifyArchiver.Presentation
             foreach (var playlist in playlists)
             {
                 Console.WriteLine($"Id: {playlist.PlaylistId}\nSpotifyId: {playlist.SpotifyId}\n{playlist.Name}\n");
+            }
+        }
+
+        private async Task QueryArchivedSongs()
+        {
+            Console.WriteLine("Enter Playlist Database Id to get songs from\n");
+            
+            var playlistDbIdInput = "";
+            while (string.IsNullOrEmpty(playlistDbIdInput) || !int.TryParse(playlistDbIdInput, out _))
+            {
+                playlistDbIdInput = Console.ReadLine();
+                if (!int.TryParse(playlistDbIdInput, out _))
+                {
+                    Console.WriteLine("Invalid input. Please enter a valid integer for the Playlist Database Id.\n");
+                }
+            }
+
+            var playlistDbId = int.Parse(playlistDbIdInput);
+            var songs = await _spotifyService.GetArchivedSongs(playlistDbId);
+            
+            Console.WriteLine("Archived Songs:\n");
+
+            foreach (var song in songs)
+            {
+                Console.WriteLine($"Id: {song.TrackId}\nSpotifyId: {song.SpotifyId}\n{song.Name}\nArtist: {song.ArtistName}\nUri: {song.SpotifyUri}\n");
             }
         }
     }
