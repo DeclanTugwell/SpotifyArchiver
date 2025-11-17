@@ -1,5 +1,5 @@
 ﻿using SpotifyAPI.Web;
-using SpotifyArchiver.Application.Abstraction;
+using SpotifyArchiver.Domain;
 
 namespace SpotifyArchiver.Application.Implementation.extensions
 {
@@ -12,11 +12,10 @@ namespace SpotifyArchiver.Application.Implementation.extensions
                 if (playlist.Id != null)
                 {
                     playlists.Add(new Playlist
-                    (
-                        playlist.Id,
-                        playlist.Name?? "N/A",
-                        playlist.Tracks?.Total ?? 0
-                    ));
+                    {
+                        SpotifyId = playlist.Id,
+                        Name = playlist.Name ?? "N/A",
+                    });
                 }
             }
         }

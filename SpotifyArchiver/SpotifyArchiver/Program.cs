@@ -1,6 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SpotifyArchiver.Application.Abstraction;
 using SpotifyArchiver.Application.Implementation;
+using SpotifyArchiver.DataAccess.Abstraction;
+using SpotifyArchiver.DataAccess.Implementation;
 using SpotifyArchiver.Presentation;
 
 var clientId = Environment.GetEnvironmentVariable("SPOTIFY_CLIENT_ID") ?? throw new InvalidOperationException("SPOTIFY_CLIENT_ID not set in Environment Variables");
@@ -12,6 +15,10 @@ await spotifyService.TryAuthenticateAsync(CancellationToken.None);
 IHostBuilder builder = Host.CreateDefaultBuilder(args)
     .ConfigureServices((services) =>
     {
+        services.AddSingleton<ISpotifyService>(spotifyService);
+        services.AddDbContext<SpotifyArchiverDbContext>();
+        services.AddScoped<IPlaylistRepository, PlaylistRepository>();
+
         services.AddSingleton(OperationHandler.Build(spotifyService));
         services.AddHostedService<PresentationService>();
     });

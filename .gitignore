@@ -5,3 +5,6 @@
 /SpotifyArchiver/.vs
 **/obj
 **/bin
+/SpotifyArchiver/SpotifyArchiver/spotify_archive.db
+/SpotifyArchiver/SpotifyArchiver/spotify_tokens.json
+/SpotifyArchiver/.geminiignore

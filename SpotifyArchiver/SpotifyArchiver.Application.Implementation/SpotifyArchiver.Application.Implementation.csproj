@@ -13,6 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\SpotifyArchiver.Application.Abstraction\SpotifyArchiver.Application.Abstraction.csproj" />
     <ProjectReference Include="..\SpotifyArchiver.DataAccess.Abstraction\SpotifyArchiver.DataAccess.Abstraction.csproj" />
+    <ProjectReference Include="..\SpotifyArchiver.Domain\SpotifyArchiver.Domain.csproj" />
   </ItemGroup>
 
 </Project>

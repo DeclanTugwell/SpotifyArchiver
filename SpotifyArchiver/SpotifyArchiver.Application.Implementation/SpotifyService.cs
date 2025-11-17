@@ -1,7 +1,7 @@
 ﻿using SpotifyAPI.Web;
 using SpotifyArchiver.Application.Abstraction;
 using SpotifyArchiver.Application.Implementation.extensions;
-
+using SpotifyArchiver.Domain;
 
 namespace SpotifyArchiver.Application.Implementation
 {
@@ -56,6 +56,44 @@ namespace SpotifyArchiver.Application.Implementation
             }
 
             return listOfPlaylists;
+        }
+
+        public async Task<List<Track>> GetPlaylistTracksAsync(string playlistId)
+        {
+            var tracks = new List<Track>();
+            var trackPage = await Client.Playlists.GetItems(playlistId);
+            var pagesAvailable = true;
+
+            while (pagesAvailable)
+            {
+                if (trackPage?.Items != null)
+                {
+                    foreach (var trackItem in trackPage.Items)
+                    {
+                        if (trackItem.Track is FullTrack track)
+                        {
+                            tracks.Add(new Track
+                            {
+                                SpotifyId = track.Id,
+                                Name = track.Name,
+                                Artist = string.Join(", ", track.Artists.Select(a => a.Name)),
+                                Album = track.Album.Name
+                            });
+                        }
+                    }
+                }
+
+                if (string.IsNullOrEmpty(trackPage?.Next) == false)
+                {
+                    trackPage = await Client.NextPage(trackPage);
+                }
+                else
+                {
+                    pagesAvailable = false;
+                }
+            }
+
+            return tracks;
         }
     }
 }

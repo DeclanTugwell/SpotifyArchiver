@@ -1,4 +1,9 @@
 ﻿using Shouldly;
+using SpotifyArchiver.Application.Abstraction;
+using SpotifyArchiver.Application.Implementation.Features.Commands;
+using SpotifyArchiver.DataAccess.Abstraction;
+using SpotifyArchiver.DataAccess.Implementation;
+using Moq;
 
 namespace SpotifyArchiver.Presentation.Test
 {
@@ -6,11 +11,15 @@ namespace SpotifyArchiver.Presentation.Test
     public class OperationHandlerTests
     {
         private FakeSpotifyService _spotifyService;
+        private Mock<IPlaylistRepository> _playlistRepositoryMock;
+        private Mock<SpotifyArchiverDbContext> _dbContextMock;
 
         [SetUp]
         public void Setup()
         {
             _spotifyService = new FakeSpotifyService();
+            _playlistRepositoryMock = new Mock<IPlaylistRepository>();
+            _dbContextMock = new Mock<SpotifyArchiverDbContext>();
         }
 
         [Test]
@@ -25,8 +34,8 @@ namespace SpotifyArchiver.Presentation.Test
 
             var operations = operationsField.GetValue(handler) as List<Operation>;
             operations.ShouldNotBeNull();
-            operations.Count.ShouldBe(2);
-            operations.Select(o => o.Name).ShouldBe(["Help", "List Playlists"]);
+            operations.Count.ShouldBe(3);
+            operations.Select(o => o.Name).ShouldBe(["Help", "List Playlists", "Archive Playlist"]);
         }
 
         [Test]
@@ -47,6 +56,7 @@ namespace SpotifyArchiver.Presentation.Test
             output.ShouldContain("Available Operations:");
             output.ShouldContain("Help");
             output.ShouldContain("List Playlists");
+            output.ShouldContain("Archive Playlist");
         }
 
         [Test]

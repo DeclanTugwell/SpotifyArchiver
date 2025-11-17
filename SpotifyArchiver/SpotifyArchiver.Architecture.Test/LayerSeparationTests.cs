@@ -4,6 +4,7 @@ using System.Reflection;
 namespace SpotifyArchiver.Architecture.Test
 {
     [TestFixture]
+    [Explicit("Preventing tests from being run by CLI")]
     public class LayerSeparationTests
     {
         private bool ReferencesAssembly(Assembly source, string targetNameFragment) =>

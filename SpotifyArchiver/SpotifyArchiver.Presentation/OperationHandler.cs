@@ -1,4 +1,9 @@
 ﻿using SpotifyArchiver.Application.Abstraction;
+using SpotifyArchiver.Application.Implementation.Features.Commands;
+using SpotifyArchiver.Application.Implementation;
+using SpotifyArchiver.DataAccess.Implementation;
+using SpotifyArchiver.DataAccess.Abstraction;
+using Microsoft.EntityFrameworkCore; // Add this line
 
 namespace SpotifyArchiver.Presentation
 {
@@ -11,6 +16,7 @@ namespace SpotifyArchiver.Presentation
             var operationHandler = new OperationHandler();
             operationHandler.AddOperation("Help", "Show descriptions for all available operations.", Task () => ShowHelp(operationHandler._operations));
             operationHandler.AddOperation("List Playlists", "Fetch and display all playlists from the authenticated Spotify account.", async Task () => await QueryPlaylists(spotifyService));
+            operationHandler.AddOperation("Archive Playlist", "Fetch and display all playlists from the authenticated Spotify account, then archive the selected playlist.", async Task () => await ArchivePlaylist(spotifyService));
             return operationHandler;
         }
 
@@ -67,7 +73,37 @@ namespace SpotifyArchiver.Presentation
             Console.WriteLine("Your Playlists:\n");
             foreach (var playlist in playlists)
             {
-                Console.WriteLine($"Id: {playlist.Id}\n{playlist.Name} - {playlist.SongCount} tracks\n");
+                Console.WriteLine($"Id: {playlist.SpotifyId}\n{playlist.Name}\n");
+            }
+        }
+
+        private static async Task ArchivePlaylist(ISpotifyService spotifyService)
+        {
+            var playlists = await spotifyService.GetPlaylistsAsync();
+            Console.WriteLine("Select a playlist to archive:\n");
+            for (var i = 0; i < playlists.Count; i++)
+            {
+                Console.WriteLine($"{i}. {playlists[i].Name}");
+            }
+
+            var playlistIndex = Console.ReadLine();
+            var playlist = playlists.ElementAtOrDefault(int.Parse(playlistIndex ?? "-1"));
+
+            if (playlist is null)
+            {
+                Console.WriteLine("Invalid playlist selected. Please try again.\n");
+                await ArchivePlaylist(spotifyService);
+            }
+            else
+            {
+                // Directly instantiate and call the command handler
+                var dbContext = new SpotifyArchiverDbContext();
+                await dbContext.Database.MigrateAsync(); // Use MigrateAsync for async operation
+                var playlistRepository = new PlaylistRepository(dbContext);
+                var handler = new ArchivePlaylistCommandHandler(spotifyService, playlistRepository);
+                var command = new ArchivePlaylistCommand(playlist.SpotifyId);
+                await handler.HandleAsync(command);
+                Console.WriteLine($"Playlist '{playlist.Name}' archived successfully.");
             }
         }
     }

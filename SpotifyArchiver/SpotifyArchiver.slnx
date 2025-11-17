@@ -9,6 +9,7 @@
   <Project Path="SpotifyArchiver.Application.Implementation/SpotifyArchiver.Application.Implementation.csproj" Id="3712fb5f-ac6f-4046-b1ad-d926758e5176" />
   <Project Path="SpotifyArchiver.DataAccess.Abstraction/SpotifyArchiver.DataAccess.Abstraction.csproj" Id="605cd6ec-1ed0-4d4e-8e34-6e55d20e96e5" />
   <Project Path="SpotifyArchiver.DataAccess.Implementation/SpotifyArchiver.DataAccess.Implementation.csproj" Id="54985220-9297-48a8-8b96-3e6bd144f69c" />
+  <Project Path="SpotifyArchiver.Domain/SpotifyArchiver.Domain.csproj" />
   <Project Path="SpotifyArchiver.Presentation/SpotifyArchiver.Presentation.csproj" Id="fd1bff7c-6559-44a4-a25a-ba7e0aaed257" />
   <Project Path="SpotifyArchiver/SpotifyArchiver.csproj" />
 </Solution>
