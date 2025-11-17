@@ -13,6 +13,7 @@ namespace SpotifyArchiver.Presentation
             operationHandler.AddOperation("Help", "Show descriptions for all available operations.", Task () => ShowHelp(operationHandler._operations));
             operationHandler.AddOperation("List Playlists", "Fetch and display all playlists from the authenticated Spotify account.", async Task () => await QueryPlaylists(spotifyService));
             operationHandler.AddOperation("Archive Playlist", "Archives playlist and all tracks into local database.", async Task () => await ArchivePlaylist(spotifyService));
+            operationHandler.AddOperation("List Archived Playlists", "Fetch and display all playlists from the local database.", async Task () => await QueryArchivedPlaylists(spotifyService));
             return operationHandler;
         }
 
@@ -92,6 +93,16 @@ namespace SpotifyArchiver.Presentation
             await spotifyService.ArchivePlaylist(playlistId);
 
             Console.WriteLine("Playlist archived successfully.\n");
+        }
+
+        private static async Task QueryArchivedPlaylists(ISpotifyService spotifyService)
+        {
+            var playlists = await spotifyService.GetArchivedPlaylistsAsync();
+            Console.WriteLine("Archived Playlists:\n");
+            foreach (var playlist in playlists)
+            {
+                Console.WriteLine($"Id: {playlist.PlaylistId}\n{playlist.Name}");
+            }
         }
     }
 }

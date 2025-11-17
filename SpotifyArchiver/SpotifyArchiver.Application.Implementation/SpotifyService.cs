@@ -92,6 +92,11 @@ namespace SpotifyArchiver.Application.Implementation
             await _playlistRepository.AddAsync(playlist);
         }
 
+        public async Task<List<Playlist>> GetArchivedPlaylistsAsync()
+        {
+            return await _playlistRepository.GetAllAsync();
+        }
+
         private async Task<List<Track>> GetAllTracks(Paging<PlaylistTrack<IPlayableItem>>? tracksPage)
         {
             var tracks = new List<Track>();

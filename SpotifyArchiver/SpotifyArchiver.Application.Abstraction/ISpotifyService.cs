@@ -7,5 +7,6 @@ namespace SpotifyArchiver.Application.Abstraction
         public Task<bool> TryAuthenticateAsync(CancellationToken token);
         public Task<List<Playlist>> GetPlaylistsAsync();
         public Task ArchivePlaylist(string playlistId);
+        public Task<List<Playlist>> GetArchivedPlaylistsAsync();
     }
 }
