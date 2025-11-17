@@ -7,6 +7,8 @@ namespace SpotifyArchiver.Presentation.Test
     {
         public bool AuthenticateCalled { get; private set; }
         public bool GetPlaylistsCalled { get; private set; }
+        public bool ArchivePlaylistCalled { get; private set; }
+        public bool DeleteArchivedPlaylistCalled { get; private set; }
 
         public Task<bool> TryAuthenticateAsync(CancellationToken token)
         {
@@ -31,7 +33,14 @@ namespace SpotifyArchiver.Presentation.Test
 
         public Task ArchivePlaylist(string playlistId)
         {
-            throw new NotImplementedException();
+            ArchivePlaylistCalled = true;
+            return Task.CompletedTask;
+        }
+
+        public Task DeleteArchivedPlaylistAsync(int playlistId)
+        {
+            DeleteArchivedPlaylistCalled = true;
+            return Task.CompletedTask;
         }
     }
 }

@@ -9,5 +9,7 @@ namespace SpotifyArchiver.DataAccess.Abstraction
         Task<List<Playlist>> FetchAllAsync();
 
         Task<Playlist?> FetchByIdAsync(int playlistId);
+
+        Task DeletePlaylistAsync(int playlistId);
     }
 }

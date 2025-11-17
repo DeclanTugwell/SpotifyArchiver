@@ -22,5 +22,15 @@ namespace SpotifyArchiver.Application.Test
         {
             return Task.FromResult(ArchivedPlaylists.FirstOrDefault(p => p.PlaylistId == playlistId));
         }
+
+        public Task DeletePlaylistAsync(int playlistId)
+        {
+            var playlist = ArchivedPlaylists.FirstOrDefault(p => p.PlaylistId == playlistId);
+            if (playlist != null)
+            {
+                ArchivedPlaylists.Remove(playlist);
+            }
+            return Task.CompletedTask;
+        }
     }
 }

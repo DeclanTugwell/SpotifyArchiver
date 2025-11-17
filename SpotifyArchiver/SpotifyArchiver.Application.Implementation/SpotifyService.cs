@@ -11,8 +11,8 @@ namespace SpotifyArchiver.Application.Implementation
     {
         private readonly SpotifyAuthService _authService;
         private readonly IPlaylistRepository _playlistRepository;
-        private SpotifyClient? _clientBacking;
-        private SpotifyClient Client
+        private ISpotifyClient? _clientBacking;
+        private ISpotifyClient Client
         {
             get
             {
@@ -20,12 +20,20 @@ namespace SpotifyArchiver.Application.Implementation
                     throw new InvalidOperationException("Spotify client has not been initialized.");
                 return _clientBacking;
             }
+            set => _clientBacking = value;
         }
 
         public SpotifyService(string clientId, string redirectUri, string configPath, IPlaylistRepository playlistRepository)
         {
             _authService = new SpotifyAuthService(clientId, redirectUri, configPath);
             _playlistRepository = playlistRepository;
+        }
+
+        public SpotifyService(ISpotifyClient client, IPlaylistRepository playlistRepository)
+        {
+            _clientBacking = client;
+            _playlistRepository = playlistRepository;
+            _authService = new SpotifyAuthService("", "", ""); // This is not ideal, but it's a quick fix for now.
         }
 
         public async Task<bool> TryAuthenticateAsync(CancellationToken token)
@@ -90,6 +98,11 @@ namespace SpotifyArchiver.Application.Implementation
             };
 
             await _playlistRepository.AddAsync(playlist);
+        }
+
+        public async Task DeleteArchivedPlaylistAsync(int playlistId)
+        {
+            await _playlistRepository.DeletePlaylistAsync(playlistId);
         }
 
         private async Task<List<Track>> GetAllTracks(Paging<PlaylistTrack<IPlayableItem>>? tracksPage)

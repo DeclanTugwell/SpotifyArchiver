@@ -23,5 +23,15 @@ namespace SpotifyArchiver.DataAccess.Implementation
                 .Include(p => p.Tracks)
                 .FirstOrDefaultAsync(p => p.PlaylistId == playlistId);
         }
+
+        public async Task DeletePlaylistAsync(int playlistId)
+        {
+            var playlist = await context.Playlists.FindAsync(playlistId);
+            if (playlist != null)
+            {
+                context.Playlists.Remove(playlist);
+                await context.SaveChangesAsync();
+            }
+        }
     }
 }

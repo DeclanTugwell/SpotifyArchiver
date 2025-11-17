@@ -17,6 +17,7 @@ namespace SpotifyArchiver.Presentation
             operationHandler.AddOperation("Archive Playlist", "Archives playlist and all tracks into local database.", async Task () => await operationHandler.ArchivePlaylist());
             operationHandler.AddOperation("List Archived Playlists", "Lists all the playlists archived in the local database.", async Task () => await operationHandler.QueryArchivedPlaylists());
             operationHandler.AddOperation("List Songs from Archived Playlist", "Fetches and displays all songs from a specified archived playlist.", async Task () => await operationHandler.FetchAllSongsFromArchivedPlaylist());
+            operationHandler.AddOperation("Delete Archived Playlist", "Deletes an archived playlist from the local database.", async Task () => await operationHandler.DeleteArchivedPlaylist());
             return operationHandler;
         }
 
@@ -139,6 +140,23 @@ namespace SpotifyArchiver.Presentation
                 Console.WriteLine($"{count}. {track.Name} by {track.ArtistName}\n{track.SpotifyUri}\n\n");
                 count++;
             }
+        }
+
+        private async Task DeleteArchivedPlaylist()
+        {
+            await QueryArchivedPlaylists();
+
+            Console.WriteLine("Enter Archived Playlist Id to delete\n");
+
+            int playlistId = -1;
+            while (playlistId < 0)
+            {
+                playlistId = int.Parse(Console.ReadLine() ?? "-1");
+            }
+
+            await _spotifyService.DeleteArchivedPlaylistAsync(playlistId);
+
+            Console.WriteLine("Playlist deleted successfully.\n");
         }
     }
 }

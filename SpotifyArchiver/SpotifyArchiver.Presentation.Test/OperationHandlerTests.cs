@@ -29,8 +29,8 @@ namespace SpotifyArchiver.Presentation.Test
 
             var operations = operationsField!.GetValue(handler) as List<Operation>;
             operations.ShouldNotBeNull();
-            operations.Count.ShouldBe(5);
-            operations.Select(o => o.Name).ShouldBe(["Help", "List Playlists", "Archive Playlist", "List Archived Playlists", "List Songs from Archived Playlist"]);
+            operations.Count.ShouldBe(6);
+            operations.Select(o => o.Name).ShouldBe(new[] { "Help", "List Playlists", "Archive Playlist", "List Archived Playlists", "List Songs from Archived Playlist", "Delete Archived Playlist" });
         }
 
         [Test]
@@ -149,7 +149,7 @@ namespace SpotifyArchiver.Presentation.Test
                 Name = "Archived Playlist 1",
                 SpotifyId = "archived1",
                 SpotifyUri = "spotify:playlist:archived1",
-                Tracks = [track]
+                Tracks = new List<Track> { track }
             };
             _playlistRepository.ArchivedPlaylists.Add(playlist);
 
@@ -170,6 +170,32 @@ namespace SpotifyArchiver.Presentation.Test
             output.ShouldContain(track.ArtistName);
             output.ShouldContain(track.SpotifyUri);
             output.ShouldContain(playlist.Name);
+        }
+
+        [Test]
+        public async Task DeleteArchivedPlaylist_Should_DeletePlaylist()
+        {
+            var playlist = new Playlist()
+            {
+                PlaylistId = 0,
+                Name = "Archived Playlist 1",
+                SpotifyId = "archived1",
+                SpotifyUri = "spotify:playlist:archived1"
+            };
+            _playlistRepository.ArchivedPlaylists.Add(playlist);
+
+            var handler = OperationHandler.Build(_spotifyService, _playlistRepository);
+            var opField = typeof(OperationHandler).GetField("_operations", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            var operations = (List<Operation>)opField!.GetValue(handler)!;
+
+            using var sr = new StringReader("0");
+            await using var sw = new StringWriter();
+            Console.SetIn(sr);
+            Console.SetOut(sw);
+
+            await operations[5].Execute();
+
+            _spotifyService.DeleteArchivedPlaylistCalled.ShouldBeTrue();
         }
     }
 }
