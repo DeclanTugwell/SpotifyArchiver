@@ -22,7 +22,7 @@ Used as a University Project. Involves experimenting with different Ai CLI pract
 |DeleteArchivedPlaylist-ControlB| N/A |  |  |  |  |  |  |  | |
 |DeleteArchivedPlaylist-Experimental| Agile-Integrated Branching and Review Flow |  |  |  |  |  |  |  | |
 |SpotifyAuthenticationFlow-ControlA| N/A |  |  |  |  |  |  |  | |
-|SpotifyAuthenticationFlow-ControlB| N/A |  |  |  |  |  |  |  | |
+|SpotifyAuthenticationFlow-ControlB| N/A | 11-SpotifyAuthenticationFlow-ControlB | N/A | 1 hour 23 minutes | 1 error encountered at runtime | FAIL | PASS | Layer Separation Compliance failed due to SpotifyArchiver.Application.Abstraction containing the third party dependancy SpotifyAPI.Web even though this is specific to the implementation. This is because DTOs were not created to represent the models used by the dependancy. | FAIL |
 |SpotifyAuthenticationFlow-Experimental| Layer-Scoped Sub-Tasking for Abstraction Enforcement |  |  |  |  |  |  |  | |
 
 ## Implementation Checklist
