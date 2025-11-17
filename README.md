@@ -15,9 +15,9 @@ Used as a University Project. Involves experimenting with different Ai CLI pract
 |FetchPlaylistDetails-ControlA| N/A | 8-FetchPlaylistDetails-ControlA |  |23 minutes | 0 | 100 | PASS | Very quick feature to implement and test thanks to having the framework and architecture in a good spot. | Pass |
 |FetchPlaylistDetails-ControlB| N/A | 8-FetchPlaylistDetails-ControlB |  |  |  |  |  |  | |
 |FetchPlaylistDetails-Experimental| Code Explanation and Variant Generation | 8-FetchPlaylistDetails-Experimental |  |  |  |  |  |  | |
-|ListSongsFromArchive-ControlA| N/A |  |  |  |  |  |  |  | |
-|ListSongsFromArchive-ControlB| N/A |  |  |  |  |  |  |  | |
-|ListSongsFromArchive-Experimental| Assertion-First Prompting for Test-Driven Development |  |  |  |  |  |  |  | |
+|ListSongsFromArchive-ControlA| N/A | 9-ListSongsFromArchive-ControlA | N/A | 29 minutes | 0 | 100 | PASS | Another very quick feature to implement and test thanks to the current status of the solution. | Pass|
+|ListSongsFromArchive-ControlB| N/A | 9-ListSongsFromArchive-ControlB | N/A |  |  |  |  |  | |
+|ListSongsFromArchive-Experimental| Assertion-First Prompting for Test-Driven Development | 9-ListSongsFromArchive-Experimental |  |  |  |  |  |  | |
 |DeleteArchivedPlaylist-ControlA| N/A |  |  |  |  |  |  |  | |
 |DeleteArchivedPlaylist-ControlB| N/A |  |  |  |  |  |  |  | |
 |DeleteArchivedPlaylist-Experimental| Agile-Integrated Branching and Review Flow |  |  |  |  |  |  |  | |
