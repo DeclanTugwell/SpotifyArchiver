@@ -17,6 +17,7 @@ namespace SpotifyArchiver.Presentation
             operationHandler.AddOperation("Archive Playlist", "Archives playlist and all tracks into local database.", async Task () => await operationHandler.ArchivePlaylist());
             operationHandler.AddOperation("List Archived Playlists", "Lists all the playlists archived in the local database.", async Task () => await operationHandler.QueryArchivedPlaylists());
             operationHandler.AddOperation("List Songs from Archived Playlist", "Fetches and displays all songs from a specified archived playlist.", async Task () => await operationHandler.FetchAllSongsFromArchivedPlaylist());
+            operationHandler.AddOperation("Remove Archived Playlist", "Removes an archived playlist from the local database.", async Task () => await operationHandler.RemovedArchivedPlaylist());
             return operationHandler;
         }
 
@@ -103,6 +104,12 @@ namespace SpotifyArchiver.Presentation
         {
             var playlists = await _playlistRepository.FetchAllAsync();
 
+            if (playlists.Any() == false)
+            {
+                Console.WriteLine("No Playlists Archived.");
+                return;
+            }
+
             Console.WriteLine("Your Archived Playlists:\n");
 
             foreach (var playlist in playlists)
@@ -139,6 +146,23 @@ namespace SpotifyArchiver.Presentation
                 Console.WriteLine($"{count}. {track.Name} by {track.ArtistName}\n{track.SpotifyUri}\n\n");
                 count++;
             }
+        }
+
+        private async Task RemovedArchivedPlaylist()
+        {
+            await QueryArchivedPlaylists();
+
+            Console.WriteLine("Enter Archived Playlist Id to Remove\n");
+
+            int playlistId = -1;
+            while (playlistId < 0)
+            {
+                playlistId = int.Parse(Console.ReadLine() ?? "-1");
+            }
+
+            await _playlistRepository.RemovePlaylistByIdAsync(playlistId);
+
+            Console.WriteLine($"Playlist Removed: {playlistId}");
         }
     }
 }

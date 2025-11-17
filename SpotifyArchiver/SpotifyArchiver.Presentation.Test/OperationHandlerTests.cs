@@ -25,19 +25,24 @@ namespace SpotifyArchiver.Presentation.Test
             handler.ShouldNotBeNull();
 
             var operationsField = typeof(OperationHandler)
-                .GetField("_operations", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+                .GetField("_operations",
+                    System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
 
             var operations = operationsField!.GetValue(handler) as List<Operation>;
             operations.ShouldNotBeNull();
-            operations.Count.ShouldBe(5);
-            operations.Select(o => o.Name).ShouldBe(["Help", "List Playlists", "Archive Playlist", "List Archived Playlists", "List Songs from Archived Playlist"]);
+            operations.Count.ShouldBe(6);
+            operations.Select(o => o.Name).ShouldBe([
+                "Help", "List Playlists", "Archive Playlist", "List Archived Playlists",
+                "List Songs from Archived Playlist", "Remove Archived Playlist"
+            ]);
         }
 
         [Test]
         public void ShowAvailableOperations_Should_WriteOperationsToConsole()
         {
             var handler = OperationHandler.Build(_spotifyService, _playlistRepository);
-            var opField = typeof(OperationHandler).GetField("_operations", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            var opField = typeof(OperationHandler).GetField("_operations",
+                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
 
             var operations = opField!.GetValue(handler) as List<Operation>;
             operations.ShouldNotBeNull();
@@ -91,7 +96,8 @@ namespace SpotifyArchiver.Presentation.Test
         public async Task HelpOperation_Should_ListOperationDescriptions()
         {
             var handler = OperationHandler.Build(_spotifyService, _playlistRepository);
-            var opField = typeof(OperationHandler).GetField("_operations", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            var opField = typeof(OperationHandler).GetField("_operations",
+                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
             var operations = (List<Operation>)opField!.GetValue(handler)!;
 
             await using var sw = new StringWriter();
@@ -118,7 +124,8 @@ namespace SpotifyArchiver.Presentation.Test
             _playlistRepository.ArchivedPlaylists.Add(playlist);
 
             var handler = OperationHandler.Build(_spotifyService, _playlistRepository);
-            var opField = typeof(OperationHandler).GetField("_operations", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            var opField = typeof(OperationHandler).GetField("_operations",
+                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
             var operations = (List<Operation>)opField!.GetValue(handler)!;
 
             await using var sw = new StringWriter();
@@ -154,7 +161,8 @@ namespace SpotifyArchiver.Presentation.Test
             _playlistRepository.ArchivedPlaylists.Add(playlist);
 
             var handler = OperationHandler.Build(_spotifyService, _playlistRepository);
-            var opField = typeof(OperationHandler).GetField("_operations", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            var opField = typeof(OperationHandler).GetField("_operations",
+                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
             var operations = (List<Operation>)opField!.GetValue(handler)!;
 
             using var sr = new StringReader("0");
@@ -170,6 +178,50 @@ namespace SpotifyArchiver.Presentation.Test
             output.ShouldContain(track.ArtistName);
             output.ShouldContain(track.SpotifyUri);
             output.ShouldContain(playlist.Name);
+        }
+
+        [Test]
+        public async Task RemoveArchivedPlaylist_Should_RemovePlaylist()
+        {
+            var track = new Track()
+            {
+                ArtistName = "Test Artist",
+                Name = "Test Track",
+                SpotifyId = "track1",
+                SpotifyUri = "spotify:track:track1",
+                TrackId = 0
+            };
+            var playlist = new Playlist()
+            {
+                PlaylistId = 0,
+                Name = "Archived Playlist 1",
+                SpotifyId = "archived1",
+                SpotifyUri = "spotify:playlist:archived1",
+                Tracks = [track]
+            };
+            _playlistRepository.ArchivedPlaylists.Add(playlist);
+
+            var handler = OperationHandler.Build(_spotifyService, _playlistRepository);
+            var opField = typeof(OperationHandler).GetField("_operations",
+                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            var operations = (List<Operation>)opField!.GetValue(handler)!;
+
+            using var sr = new StringReader("0");
+            await using var sw = new StringWriter();
+            Console.SetIn(sr);
+            Console.SetOut(sw);
+
+            await operations[5].Execute();
+
+            var output = sw.ToString();
+            output.ShouldContain($"Playlist Removed: {playlist.PlaylistId}");
+
+            sw.Close();
+            await using var sw2 = new StringWriter();
+            Console.SetOut(sw2);
+            await operations[3].Execute();
+            output = sw2.ToString();
+            output.ShouldContain("No Playlists Archived.");
         }
     }
 }

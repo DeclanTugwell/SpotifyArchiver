@@ -18,9 +18,9 @@ Used as a University Project. Involves experimenting with different Ai CLI pract
 |ListSongsFromArchive-ControlA| N/A | 9-ListSongsFromArchive-ControlA | N/A | 29 minutes | 0 | 100 | PASS | Another very quick feature to implement and test thanks to the current status of the solution. | Pass|
 |ListSongsFromArchive-ControlB| N/A | 9-ListSongsFromArchive-ControlB | N/A |  |  |  |  |  | |
 |ListSongsFromArchive-Experimental| Assertion-First Prompting for Test-Driven Development | 9-ListSongsFromArchive-Experimental |  |  |  |  |  |  | |
-|DeleteArchivedPlaylist-ControlA| N/A |  |  |  |  |  |  |  | |
-|DeleteArchivedPlaylist-ControlB| N/A |  |  |  |  |  |  |  | |
-|DeleteArchivedPlaylist-Experimental| Agile-Integrated Branching and Review Flow |  |  |  |  |  |  |  | |
+|DeleteArchivedPlaylist-ControlA| N/A | 10-DeleteArchivedPlaylist-ControlA | N/A | 16 minutes | 0 | 100 | PASS | Quick to implement and add tests for, the process feels very structured for adding a database command feature which is resulting in a quick and smooth implementation without any bugs. | Pass |
+|DeleteArchivedPlaylist-ControlB| N/A | 10-DeleteArchivedPlaylist-ControlB | N/A |  |  |  |  |  | |
+|DeleteArchivedPlaylist-Experimental| Agile-Integrated Branching and Review Flow | 10-DeleteArchivedPlaylist-Experimental |  |  |  |  |  |  | |
 |SpotifyAuthenticationFlow-ControlA| N/A | 11-SpotifyAuthenticationFlow-ControlA | N/A | 3 hours 16 minutes | 0 | 100 | Pass | Had some trouble getting the PKCE auth flow to work with the Spotfiy API client third party dependancy being used. Other than this was smooth, complete with integration test for the flow, and great alignment with intended development patterns. | Pass |
 |SpotifyAuthenticationFlow-ControlB| N/A |  |  |  |  |  |  |  | |
 |SpotifyAuthenticationFlow-Experimental| Layer-Scoped Sub-Tasking for Abstraction Enforcement |  |  |  |  |  |  |  | |

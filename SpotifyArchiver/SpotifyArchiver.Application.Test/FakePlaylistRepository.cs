@@ -1,4 +1,5 @@
-﻿using SpotifyArchiver.DataAccess.Abstraction;
+﻿using SpotifyAPI.Web;
+using SpotifyArchiver.DataAccess.Abstraction;
 using SpotifyArchiver.DataAccess.Abstraction.entities;
 
 namespace SpotifyArchiver.Application.Test
@@ -21,6 +22,18 @@ namespace SpotifyArchiver.Application.Test
         public Task<Playlist?> FetchByIdAsync(int playlistId)
         {
             return Task.FromResult(ArchivedPlaylists.FirstOrDefault(p => p.PlaylistId == playlistId));
+        }
+
+        public async Task RemovePlaylistByIdAsync(int playlistId)
+        {
+            var targetPlaylist = await FetchByIdAsync(playlistId);
+
+            if (targetPlaylist == null)
+            {
+                throw new OperationCanceledException($"Unable to find archived playlist with id {playlistId}");
+            }
+
+            ArchivedPlaylists.Remove(targetPlaylist);
         }
     }
 }
