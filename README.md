@@ -23,7 +23,7 @@ Used as a University Project. Involves experimenting with different Ai CLI pract
 |DeleteArchivedPlaylist-Experimental| Agile-Integrated Branching and Review Flow |  |  |  |  |  |  |  | |
 |SpotifyAuthenticationFlow-ControlA| N/A |  |  |  |  |  |  |  | |
 |SpotifyAuthenticationFlow-ControlB| N/A |  |  |  |  |  |  |  | |
-|SpotifyAuthenticationFlow-Experimental| Layer-Scoped Sub-Tasking for Abstraction Enforcement | 11-SpotifyAuthenticationFlow-Experimental | 1.2.1.2., 1.2.2.1. | 1 hour 7 minutes | 1 | Fail (100) | Pass | Layer Separation Compliance failed due to SpotifyArchiver.Application.Abstraction containing the third party dependancy SpotifyAPI.Web even though this is specific to the implementation. This is because DTOs were not created to represent the models used by the dependancy. One error encountered at runtime due to missing validation of the redirect_uri. As apart of  the practice being tested a GEMINI.md file that contained relevant context over the whole solution was created. This was injected at the start of every prompt and reduced the overall time it took to reduce the feature, this was mostly due to the model not needing to search the solution for the context required. It did not help enforce the CLEAN architecture however.| Pass |
+|SpotifyAuthenticationFlow-Experimental| Persistent Context File for Multi-Turn Accuracy | 11-SpotifyAuthenticationFlow-Experimental | 1.2.1.2., 1.2.2.1. | 1 hour 7 minutes | 1 | Fail (100) | Pass | Layer Separation Compliance failed due to SpotifyArchiver.Application.Abstraction containing the third party dependancy SpotifyAPI.Web even though this is specific to the implementation. This is because DTOs were not created to represent the models used by the dependancy. One error encountered at runtime due to missing validation of the redirect_uri. As apart of  the practice being tested a GEMINI.md file that contained relevant context over the whole solution was created. This was injected at the start of every prompt and reduced the overall time it took to reduce the feature, this was mostly due to the model not needing to search the solution for the context required. It did not help enforce the CLEAN architecture however.| Pass |
 
 ## Implementation Checklist
 
@@ -73,9 +73,9 @@ Performed during Pull Request peer review stage.
 
 ### 7. TAM Survey Post-Review
 
-- Perceived Usefulness score (1-5)
-- Perceived Ease of Use score (1-5)
-- Optional comments.
+|Practice ID| Perceived Usefulness (1-5) | Perceived Ease of Use score (1-5) | Outcome Summary|
+|-|-|-|-|-|-|-|-|-|-|
+|SpotifyAuthenticationFlow-Experimental| 3.5 | 5 | While the practice did not improve the tools ability to adhere to the architectural constraints choosen for the solution, it did improve the efficency of the tool making for a faster implementation. The file was easy to setup and only needs setup once for the practice to be enforced across all sessions of the tool, this would make subsequent features faster to implement as the contextual file would not need to be written each time. Additonally multiple files could be used and inter-changed to limit the scope of context the tool has.|
 
 ### 8. Pass/Fail Classification
 
