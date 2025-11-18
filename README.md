@@ -11,7 +11,7 @@ Used as a University Project. Involves experimenting with different Ai CLI pract
 |QueryPlaylists-Experimental| Persistent Context File for Multi-Turn Accuracy |  |  |  |  |  |  |  | |
 |ArchivePlaylist-ControlA| N/A |  |  |  |  |  |  |  | |
 |ArchivePlaylist-ControlB| N/A |  |  |  |  |  |  |  | |
-|ArchivePlaylist-Experimental| Prompt Scaffolding for Complex Feature Delivery |  |  |  |  |  |  |  | |
+|ArchivePlaylist-Experimental| Layer-Scoped Sub-Tasking for Abstraction Enforcement | 7-ArchivePlaylist-Experimental | 1.2.3.3. | 52 minutes | 0 | Pass (100) | Pass | Implementation was very smooth, with each instance of the CLI performing exactly what it was told with no scope creep and no violation of the architecture. Scoping CLI instances to layers allowed multiple CLI instances to be running at once, allowing the tools to be working in parallel. This did cause a higher failure rate of the model however.| Pass |
 |FetchPlaylistDetails-ControlA| N/A |  |  |  |  |  |  |  | |
 |FetchPlaylistDetails-ControlB| N/A |  |  |  |  |  |  |  | |
 |FetchPlaylistDetails-Experimental| Code Explanation and Variant Generation |  |  |  |  |  |  |  | |
