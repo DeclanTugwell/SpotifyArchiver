@@ -8,7 +8,7 @@ Used as a University Project. Involves experimenting with different Ai CLI pract
 |-|-|-|-|-|-|-|-|-|-|
 |QueryPlaylists-ControlA| N/A |  |  |  |  |  |  |  | |
 |QueryPlaylists-ControlB| N/A |  |  |  |  |  |  |  | |
-|QueryPlaylists-Experimental| Persistent Context File for Multi-Turn Accuracy |  |  |  |  |  |  |  | |
+|QueryPlaylists-Experimental| Prompt Scaffolding for Complex Feature Delivery | 6-QueryPlaylists-Experimental | 1.2.2.2. | 49 minutes | 1 | Pass (100) | Pass | Easy and fast implementation of the feature thanks to breaking the process down into small chunks making reviewing generated code fast and accurate. | Pass |
 |ArchivePlaylist-ControlA| N/A |  |  |  |  |  |  |  | |
 |ArchivePlaylist-ControlB| N/A |  |  |  |  |  |  |  | |
 |ArchivePlaylist-Experimental| Prompt Scaffolding for Complex Feature Delivery |  |  |  |  |  |  |  | |
