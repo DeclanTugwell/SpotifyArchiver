@@ -1,14 +1,14 @@
 <Solution>
   <Folder Name="/test/">
-    <Project Path="SpotifyArchiver.Application.Test/SpotifyArchiver.Application.Test.csproj" Id="604af09b-fc46-439e-9278-54b9cae49957" />
+    <Project Path="SpotifyArchiver.Application/SpotifyArchiver.Application.Test/SpotifyArchiver.Application.Test.csproj" />
     <Project Path="SpotifyArchiver.Architecture.Test/SpotifyArchiver.Architecture.Test.csproj" Id="5ffd1c2b-a14a-413d-b4d3-a1d4380a3ca9" />
-    <Project Path="SpotifyArchiver.DataAccess.Test/SpotifyArchiver.DataAccess.Test.csproj" Id="c255b1ee-c9b3-4160-93ee-023ae31d33d4" />
-    <Project Path="SpotifyArchiver.Presentation.Test/SpotifyArchiver.Presentation.Test.csproj" Id="509b2b17-adb6-42a4-9744-bb2489520c23" />
+    <Project Path="SpotifyArchiver.DataAccess/SpotifyArchiver.DataAccess.Test/SpotifyArchiver.DataAccess.Test.csproj" />
+    <Project Path="SpotifyArchiver.Presentation/SpotifyArchiver.Presentation.Test/SpotifyArchiver.Presentation.Test.csproj" />
   </Folder>
-  <Project Path="SpotifyArchiver.Application.Abstraction/SpotifyArchiver.Application.Abstraction.csproj" Id="1ee20f54-a61b-43de-8e60-a8ab9d218bb4" />
-  <Project Path="SpotifyArchiver.Application.Implementation/SpotifyArchiver.Application.Implementation.csproj" Id="3712fb5f-ac6f-4046-b1ad-d926758e5176" />
-  <Project Path="SpotifyArchiver.DataAccess.Abstraction/SpotifyArchiver.DataAccess.Abstraction.csproj" Id="605cd6ec-1ed0-4d4e-8e34-6e55d20e96e5" />
-  <Project Path="SpotifyArchiver.DataAccess.Implementation/SpotifyArchiver.DataAccess.Implementation.csproj" Id="54985220-9297-48a8-8b96-3e6bd144f69c" />
-  <Project Path="SpotifyArchiver.Presentation/SpotifyArchiver.Presentation.csproj" Id="fd1bff7c-6559-44a4-a25a-ba7e0aaed257" />
+  <Project Path="SpotifyArchiver.Application/SpotifyArchiver.Application.Abstraction/SpotifyArchiver.Application.Abstraction.csproj" />
+  <Project Path="SpotifyArchiver.Application/SpotifyArchiver.Application.Implementation/SpotifyArchiver.Application.Implementation.csproj" />
+  <Project Path="SpotifyArchiver.DataAccess/SpotifyArchiver.DataAccess.Abstraction/SpotifyArchiver.DataAccess.Abstraction.csproj" />
+  <Project Path="SpotifyArchiver.DataAccess/SpotifyArchiver.DataAccess.Implementation/SpotifyArchiver.DataAccess.Implementation.csproj" />
+  <Project Path="SpotifyArchiver.Presentation/SpotifyArchiver.Presentation/SpotifyArchiver.Presentation.csproj" />
   <Project Path="SpotifyArchiver/SpotifyArchiver.csproj" />
 </Solution>

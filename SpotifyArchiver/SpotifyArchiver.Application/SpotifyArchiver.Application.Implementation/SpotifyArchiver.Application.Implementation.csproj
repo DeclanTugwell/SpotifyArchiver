@@ -11,8 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\SpotifyArchiver.DataAccess\SpotifyArchiver.DataAccess.Abstraction\SpotifyArchiver.DataAccess.Abstraction.csproj" />
     <ProjectReference Include="..\SpotifyArchiver.Application.Abstraction\SpotifyArchiver.Application.Abstraction.csproj" />
-    <ProjectReference Include="..\SpotifyArchiver.DataAccess.Abstraction\SpotifyArchiver.DataAccess.Abstraction.csproj" />
   </ItemGroup>
 
 </Project>

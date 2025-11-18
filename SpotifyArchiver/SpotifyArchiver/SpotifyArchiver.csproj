@@ -8,13 +8,26 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.0">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SpotifyArchiver.Application.Implementation\SpotifyArchiver.Application.Implementation.csproj" />
-    <ProjectReference Include="..\SpotifyArchiver.DataAccess.Implementation\SpotifyArchiver.DataAccess.Implementation.csproj" />
-    <ProjectReference Include="..\SpotifyArchiver.Presentation\SpotifyArchiver.Presentation.csproj" />
+    <ProjectReference Include="..\SpotifyArchiver.Application\SpotifyArchiver.Application.Abstraction\SpotifyArchiver.Application.Abstraction.csproj" />
+    <ProjectReference Include="..\SpotifyArchiver.Application\SpotifyArchiver.Application.Implementation\SpotifyArchiver.Application.Implementation.csproj" />
+    <ProjectReference Include="..\SpotifyArchiver.DataAccess\SpotifyArchiver.DataAccess.Abstraction\SpotifyArchiver.DataAccess.Abstraction.csproj" />
+    <ProjectReference Include="..\SpotifyArchiver.DataAccess\SpotifyArchiver.DataAccess.Implementation\SpotifyArchiver.DataAccess.Implementation.csproj" />
+    <ProjectReference Include="..\SpotifyArchiver.Presentation\SpotifyArchiver.Presentation\SpotifyArchiver.Presentation.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="music.db">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

@@ -1,5 +1,6 @@
 ﻿using Shouldly;
 using SpotifyArchiver.Application.Implementation;
+using SpotifyArchiver.Application.Test.Fakes;
 
 namespace SpotifyArchiver.Application.Test
 {
@@ -14,7 +15,8 @@ namespace SpotifyArchiver.Application.Test
         [Test]
         public async Task Test_AuthenticationFlow()
         {
-            var service = new SpotifyService(_clientId, _redirectUri, _configPath);
+            var fakePlaylistRepository = new FakePlaylistRepository();
+            var service = new SpotifyService(_clientId, _redirectUri, _configPath, fakePlaylistRepository);
             var authenticated = await service.TryAuthenticateAsync(CancellationToken.None);
             authenticated.ShouldBeTrue();
             File.Exists(_configPath).ShouldBeTrue();
@@ -23,7 +25,8 @@ namespace SpotifyArchiver.Application.Test
         [Test]
         public async Task Test_WhenGetPlaylistsAsyncCalled_ThenPlaylistsReturned()
         {
-            var service = new SpotifyService(_clientId, _redirectUri, _configPath);
+            var fakePlaylistRepository = new FakePlaylistRepository();
+            var service = new SpotifyService(_clientId, _redirectUri, _configPath, fakePlaylistRepository);
             (await service.TryAuthenticateAsync(CancellationToken.None)).ShouldBeTrue();
             var playlists = await service.GetPlaylistsAsync();
             playlists.ShouldNotBeEmpty();

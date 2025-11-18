@@ -11,6 +11,7 @@ namespace SpotifyArchiver.Presentation
             var operationHandler = new OperationHandler();
             operationHandler.AddOperation("Help", "Show descriptions for all available operations.", Task () => ShowHelp(operationHandler._operations));
             operationHandler.AddOperation("List Playlists", "Fetch and display all playlists from the authenticated Spotify account.", async Task () => await QueryPlaylists(spotifyService));
+            operationHandler.AddOperation("Archive Playlist", "Archive a playlist by providing its id.", async Task () => await ArchivePlaylist(spotifyService));
             return operationHandler;
         }
 
@@ -69,6 +70,20 @@ namespace SpotifyArchiver.Presentation
             {
                 Console.WriteLine($"Id: {playlist.Id}\n{playlist.Name} - {playlist.SongCount} tracks\n");
             }
+        }
+
+        private static async Task ArchivePlaylist(ISpotifyService spotifyService)
+        {
+            Console.WriteLine("Please provide the id of the playlist you would like to archive.\n");
+            var playlistId = Console.ReadLine();
+            if (string.IsNullOrEmpty(playlistId))
+            {
+                Console.WriteLine("Playlist id cannot be empty.");
+                return;
+            }
+            
+            await spotifyService.ArchivePlaylistAsync(playlistId);
+            Console.WriteLine($"Playlist {playlistId} has been successfully archived.\n");
         }
     }
 }
