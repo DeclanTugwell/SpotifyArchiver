@@ -7,5 +7,6 @@ namespace SpotifyArchiver.DataAccess.Abstraction
         Task AddAsync(Playlist playlist);
 
         Task<List<Playlist>> FetchAllAsync();
+        Task<Playlist?> GetByIdAsync(int playlistId);
     }
 }

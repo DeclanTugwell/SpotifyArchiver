@@ -16,5 +16,12 @@ namespace SpotifyArchiver.DataAccess.Implementation
         {
             return await context.Playlists.ToListAsync();
         }
+
+        public async Task<Playlist?> GetByIdAsync(int playlistId)
+        {
+            return await context.Playlists
+                .Include(p => p.Tracks)
+                .FirstOrDefaultAsync(p => p.PlaylistId == playlistId);
+        }
     }
 }

@@ -16,6 +16,7 @@ namespace SpotifyArchiver.Presentation
             operationHandler.AddOperation("List Playlists", "Fetch and display all playlists from the authenticated Spotify account.", async Task () => await operationHandler.QueryPlaylists());
             operationHandler.AddOperation("Archive Playlist", "Archives playlist and all tracks into local database.", async Task () => await operationHandler.ArchivePlaylist());
             operationHandler.AddOperation("List Archived Playlists", "Lists all the playlists archived in the local database.", async Task () => await operationHandler.QueryArchivedPlaylists());
+            operationHandler.AddOperation("List Archived Playlist Songs", "Lists all the songs in an archived playlist.", async Task () => await operationHandler.QueryArchivedPlaylistSongs());
             return operationHandler;
         }
 
@@ -107,6 +108,42 @@ namespace SpotifyArchiver.Presentation
             foreach (var playlist in playlists)
             {
                 Console.WriteLine($"Id: {playlist.PlaylistId}\nSpotifyId: {playlist.SpotifyId}\n{playlist.Name}\n");
+            }
+        }
+        
+        private async Task QueryArchivedPlaylistSongs()
+        {
+            Console.WriteLine("Enter Playlist Id to view songs\n");
+
+            var playlistIdStr = "";
+            while (string.IsNullOrEmpty(playlistIdStr))
+            {
+                playlistIdStr = Console.ReadLine();
+            }
+
+            if (int.TryParse(playlistIdStr, out var playlistId))
+            {
+                var playlist = await _playlistRepository.GetByIdAsync(playlistId);
+
+                if (playlist is null)
+                {
+                    Console.WriteLine("Playlist not found.\n");
+                    return;
+                }
+
+                Console.WriteLine($"Songs in {playlist.Name}:\n");
+
+                foreach (var track in playlist.Tracks)
+                {
+                    Console.WriteLine($"Id: {track.SpotifyId}");
+                    Console.WriteLine($"Name: {track.Name}");
+                    Console.WriteLine($"Artist: {track.ArtistName}");
+                    Console.WriteLine($"Uri: {track.SpotifyUri}\n");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Invalid Playlist Id.\n");
             }
         }
     }

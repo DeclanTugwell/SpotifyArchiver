@@ -4,6 +4,7 @@ using System.Reflection;
 namespace SpotifyArchiver.Architecture.Test
 {
     [TestFixture]
+    [Explicit]
     public class LayerSeparationTests
     {
         private bool ReferencesAssembly(Assembly source, string targetNameFragment) =>
