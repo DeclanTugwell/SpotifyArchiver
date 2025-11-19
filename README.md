@@ -17,7 +17,7 @@ Used as a University Project. Involves experimenting with different Ai CLI pract
 |FetchPlaylistDetails-Experimental| Code Explanation and Variant Generation | 8-FetchPlaylistDetails-Experimental |  |  |  |  |  |  | |
 |ListSongsFromArchive-ControlA| N/A |  |  |  |  |  |  |  | |
 |ListSongsFromArchive-ControlB| N/A |  |  |  |  |  |  |  | |
-|ListSongsFromArchive-Experimental| Assertion-First Prompting for Test-Driven Development |  |  |  |  |  |  |  | |
+|ListSongsFromArchive-Experimental| Assertion-First Prompting for Test-Driven Development | 9-ListSongsFromArchive-Experimental | 1.2.2.4. | 15 minutes | 0 | Pass (100) | Pass | Implementation was fast and adheared to all architectural requirements. Asymmetric layering was used with the query skipping over the application layer making for a performant implementation. By creating the abstraction and writing tests first, the tool was able to automatically evaluate its own implementation. | Pass |
 |DeleteArchivedPlaylist-ControlA| N/A |  |  |  |  |  |  |  | |
 |DeleteArchivedPlaylist-ControlB| N/A |  |  |  |  |  |  |  | |
 |DeleteArchivedPlaylist-Experimental| Agile-Integrated Branching and Review Flow |  |  |  |  |  |  |  | |
