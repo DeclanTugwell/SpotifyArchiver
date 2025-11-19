@@ -12,5 +12,10 @@ namespace SpotifyArchiver.Application.Test
             ArchivedPlaylists.Add(playlist);
             return Task.CompletedTask;
         }
+
+        public Task<List<Playlist>> GetAllAsync()
+        {
+            return Task.FromResult(ArchivedPlaylists);
+        }
     }
 }

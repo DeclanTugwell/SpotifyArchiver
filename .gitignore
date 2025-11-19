@@ -7,3 +7,4 @@
 **/bin
 /SpotifyArchiver/SpotifyArchiver/spotify_tokens.json
 /SpotifyArchiver/SpotifyArchiver/music.db
+/SpotifyArchiver/.geminiignore

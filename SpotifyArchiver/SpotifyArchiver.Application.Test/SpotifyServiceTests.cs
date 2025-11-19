@@ -58,5 +58,24 @@ namespace SpotifyArchiver.Application.Test
             }
             exceptionThrown.ShouldBeTrue();
         }
+
+        // Test to ensure that GetArchivedPlaylistsAsync returns all playlists from the repository.
+        [Test]
+        public async Task Test_GetArchivedPlaylistsAsync()
+        {
+            // Arrange
+            var repo = new FakePlaylistRepository();
+            var playlist = new DataAccess.Abstraction.entities.Playlist { Name = "Test Playlist", SpotifyId = "123", SpotifyUri = "test_uri" };
+            await repo.AddAsync(playlist);
+            
+            var service = new SpotifyService(_clientId, _redirectUri, _configPath, repo);
+
+            // Act
+            var archivedPlaylists = await service.GetArchivedPlaylistsAsync();
+
+            // Assert
+            archivedPlaylists.ShouldNotBeEmpty();
+            archivedPlaylists.ShouldContain(p => p.SpotifyId == playlist.SpotifyId);
+        }
     }
 }
