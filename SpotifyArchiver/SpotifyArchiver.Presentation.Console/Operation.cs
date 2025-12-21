@@ -1,4 +1,4 @@
-﻿namespace SpotifyArchiver.Presentation
+﻿namespace SpotifyArchiver.Presentation.Console
 {
     public class Operation
     {

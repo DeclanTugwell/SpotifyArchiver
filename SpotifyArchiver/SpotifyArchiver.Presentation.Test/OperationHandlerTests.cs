@@ -1,6 +1,8 @@
 ﻿using Shouldly;
 using SpotifyArchiver.Application.Test;
 using SpotifyArchiver.DataAccess.Abstraction.entities;
+using SpotifyArchiver.Presentation.Console;
+using SysConsole = System.Console;
 
 namespace SpotifyArchiver.Presentation.Test
 {
@@ -48,7 +50,7 @@ namespace SpotifyArchiver.Presentation.Test
             operations.ShouldNotBeNull();
 
             using var sw = new StringWriter();
-            Console.SetOut(sw);
+            SysConsole.SetOut(sw);
 
             handler.ShowAvailableOperations();
 
@@ -66,8 +68,8 @@ namespace SpotifyArchiver.Presentation.Test
             // Simulate user selecting second operation - list playlists
             using var sr = new StringReader("1");
             await using var sw = new StringWriter();
-            Console.SetIn(sr);
-            Console.SetOut(sw);
+            SysConsole.SetIn(sr);
+            SysConsole.SetOut(sw);
 
             await handler.AwaitOperation();
 
@@ -83,8 +85,8 @@ namespace SpotifyArchiver.Presentation.Test
 
             using var sr = new StringReader("-1\n0");
             await using var sw = new StringWriter();
-            Console.SetIn(sr);
-            Console.SetOut(sw);
+            SysConsole.SetIn(sr);
+            SysConsole.SetOut(sw);
 
             await handler.AwaitOperation();
 
@@ -101,7 +103,7 @@ namespace SpotifyArchiver.Presentation.Test
             var operations = (List<Operation>)opField!.GetValue(handler)!;
 
             await using var sw = new StringWriter();
-            Console.SetOut(sw);
+            SysConsole.SetOut(sw);
 
             await operations[0].Execute();
 
@@ -129,7 +131,7 @@ namespace SpotifyArchiver.Presentation.Test
             var operations = (List<Operation>)opField!.GetValue(handler)!;
 
             await using var sw = new StringWriter();
-            Console.SetOut(sw);
+            SysConsole.SetOut(sw);
 
             await operations[3].Execute();
 
@@ -167,8 +169,8 @@ namespace SpotifyArchiver.Presentation.Test
 
             using var sr = new StringReader("0");
             await using var sw = new StringWriter();
-            Console.SetIn(sr);
-            Console.SetOut(sw);
+            SysConsole.SetIn(sr);
+            SysConsole.SetOut(sw);
 
             await operations[4].Execute();
 
@@ -208,8 +210,8 @@ namespace SpotifyArchiver.Presentation.Test
 
             using var sr = new StringReader("0");
             await using var sw = new StringWriter();
-            Console.SetIn(sr);
-            Console.SetOut(sw);
+            SysConsole.SetIn(sr);
+            SysConsole.SetOut(sw);
 
             await operations[5].Execute();
 
@@ -218,7 +220,7 @@ namespace SpotifyArchiver.Presentation.Test
 
             sw.Close();
             await using var sw2 = new StringWriter();
-            Console.SetOut(sw2);
+            SysConsole.SetOut(sw2);
             await operations[3].Execute();
             output = sw2.ToString();
             output.ShouldContain("No Playlists Archived.");

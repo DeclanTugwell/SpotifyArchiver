@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Hosting;
+using SysConsole = System.Console;
 
-namespace SpotifyArchiver.Presentation
+namespace SpotifyArchiver.Presentation.Console
 {
     public class PresentationService(OperationHandler operationHandler)
         : BackgroundService
@@ -9,7 +10,7 @@ namespace SpotifyArchiver.Presentation
         {
             if (await operationHandler.TryAuthenticate(stoppingToken) == false)
             {
-                Console.WriteLine("Authentication Failed.");
+                SysConsole.WriteLine("Authentication Failed.");
             }
             else
             {
@@ -26,12 +27,12 @@ namespace SpotifyArchiver.Presentation
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine(ex.Message);
+                        SysConsole.WriteLine(ex.Message);
                     }
                 }
             }
 
-            Console.WriteLine("Closing Application...");
+            SysConsole.WriteLine("Closing Application...");
         }
     }
 }

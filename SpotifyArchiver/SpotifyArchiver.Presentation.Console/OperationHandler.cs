@@ -1,7 +1,8 @@
 ﻿using SpotifyArchiver.Application.Abstraction;
 using SpotifyArchiver.DataAccess.Abstraction;
+using SysConsole = System.Console;
 
-namespace SpotifyArchiver.Presentation
+namespace SpotifyArchiver.Presentation.Console
 {
     public class OperationHandler
     {
@@ -23,23 +24,23 @@ namespace SpotifyArchiver.Presentation
 
         public void ShowAvailableOperations()
         {
-            Console.WriteLine("Available Operations:\n\n");
+            SysConsole.WriteLine("Available Operations:\n\n");
 
-            for (var count = 0; _operations.Count > count; count ++)
+            for (var count = 0; _operations.Count > count; count++)
             {
-                Console.WriteLine($"{count}. {_operations[count].Name}\n");
+                SysConsole.WriteLine($"{count}. {_operations[count].Name}\n");
             }
         }
 
         public async Task AwaitOperation()
         {
-            var operationIndex = Console.ReadLine();
+            var operationIndex = SysConsole.ReadLine();
 
             var operation = _operations.ElementAtOrDefault(int.Parse(operationIndex ?? "-1"));
 
             if (operation is null)
             {
-                Console.WriteLine("Invalid operation selected. Please try again.\n");
+                SysConsole.WriteLine("Invalid operation selected. Please try again.\n");
                 await AwaitOperation();
             }
             else
@@ -53,7 +54,7 @@ namespace SpotifyArchiver.Presentation
             return await _spotifyService.TryAuthenticateAsync(token);
         }
 
-        private OperationHandler(ISpotifyService spotifyService , IPlaylistRepository playlistRepository)
+        private OperationHandler(ISpotifyService spotifyService, IPlaylistRepository playlistRepository)
         {
             _spotifyService = spotifyService;
             _playlistRepository = playlistRepository;
@@ -66,10 +67,10 @@ namespace SpotifyArchiver.Presentation
 
         private static Task ShowHelp(List<Operation> operations)
         {
-            Console.WriteLine("Operation Descriptions:\n");
+            SysConsole.WriteLine("Operation Descriptions:\n");
             foreach (var operation in operations)
             {
-                Console.WriteLine($"{operation.Name}: {operation.Description}\n");
+                SysConsole.WriteLine($"{operation.Name}: {operation.Description}\n");
             }
 
             return Task.CompletedTask;
@@ -78,26 +79,26 @@ namespace SpotifyArchiver.Presentation
         private async Task QueryPlaylists()
         {
             var playlists = await _spotifyService.GetPlaylistsAsync();
-            Console.WriteLine("Your Playlists:\n\n");
+            SysConsole.WriteLine("Your Playlists:\n\n");
             foreach (var playlist in playlists)
             {
-                Console.WriteLine($"Id: {playlist.SpotifyId}\n{playlist.Name}\n");
+                SysConsole.WriteLine($"Id: {playlist.SpotifyId}\n{playlist.Name}\n");
             }
         }
 
         private async Task ArchivePlaylist()
         {
-            Console.WriteLine("Enter Playlist Id to Archive\n");
+            SysConsole.WriteLine("Enter Playlist Id to Archive\n");
 
             var playlistId = "";
             while (string.IsNullOrEmpty(playlistId))
             {
-                playlistId = Console.ReadLine();
+                playlistId = SysConsole.ReadLine();
             }
 
             await _spotifyService.ArchivePlaylist(playlistId);
 
-            Console.WriteLine("Playlist archived successfully.\n");
+            SysConsole.WriteLine("Playlist archived successfully.\n");
         }
 
         private async Task QueryArchivedPlaylists()
@@ -106,15 +107,15 @@ namespace SpotifyArchiver.Presentation
 
             if (playlists.Any() == false)
             {
-                Console.WriteLine("No Playlists Archived.");
+                SysConsole.WriteLine("No Playlists Archived.");
                 return;
             }
 
-            Console.WriteLine("Your Archived Playlists:\n");
+            SysConsole.WriteLine("Your Archived Playlists:\n");
 
             foreach (var playlist in playlists)
             {
-                Console.WriteLine($"Id: {playlist.PlaylistId}\nSpotifyId: {playlist.SpotifyId}\n{playlist.Name}\n");
+                SysConsole.WriteLine($"Id: {playlist.PlaylistId}\nSpotifyId: {playlist.SpotifyId}\n{playlist.Name}\n");
             }
         }
 
@@ -122,28 +123,28 @@ namespace SpotifyArchiver.Presentation
         {
             await QueryArchivedPlaylists();
 
-            Console.WriteLine("Enter Archived Playlist Id\n");
+            SysConsole.WriteLine("Enter Archived Playlist Id\n");
 
             int playlistId = -1;
             while (playlistId < 0)
             {
-                playlistId = int.Parse(Console.ReadLine() ?? "-1");
+                playlistId = int.Parse(SysConsole.ReadLine() ?? "-1");
             }
 
             var playlist = await _playlistRepository.FetchByIdAsync(playlistId);
 
             if (playlist == null)
             {
-                Console.WriteLine("No playlist found matching that ID.");
+                SysConsole.WriteLine("No playlist found matching that ID.");
                 return;
             }
 
-            Console.WriteLine($"Songs in Playlist: {playlist.Name}\n");
+            SysConsole.WriteLine($"Songs in Playlist: {playlist.Name}\n");
 
             var count = 0;
             foreach (var track in playlist.Tracks)
             {
-                Console.WriteLine($"{count}. {track.Name} by {track.ArtistName}\n{track.SpotifyUri}\n\n");
+                SysConsole.WriteLine($"{count}. {track.Name} by {track.ArtistName}\n{track.SpotifyUri}\n\n");
                 count++;
             }
         }
@@ -152,17 +153,17 @@ namespace SpotifyArchiver.Presentation
         {
             await QueryArchivedPlaylists();
 
-            Console.WriteLine("Enter Archived Playlist Id to Remove\n");
+            SysConsole.WriteLine("Enter Archived Playlist Id to Remove\n");
 
             int playlistId = -1;
             while (playlistId < 0)
             {
-                playlistId = int.Parse(Console.ReadLine() ?? "-1");
+                playlistId = int.Parse(SysConsole.ReadLine() ?? "-1");
             }
 
             await _playlistRepository.RemovePlaylistByIdAsync(playlistId);
 
-            Console.WriteLine($"Playlist Removed: {playlistId}");
+            SysConsole.WriteLine($"Playlist Removed: {playlistId}");
         }
     }
 }

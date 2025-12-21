@@ -5,7 +5,7 @@ using SpotifyArchiver.Application.Abstraction;
 using SpotifyArchiver.Application.Implementation;
 using SpotifyArchiver.DataAccess.Abstraction;
 using SpotifyArchiver.DataAccess.Implementation;
-using SpotifyArchiver.Presentation;
+using SpotifyArchiver.Presentation.Console;
 using SQLitePCL;
 
 var clientId = Environment.GetEnvironmentVariable("SPOTIFY_CLIENT_ID") ?? throw new InvalidOperationException("SPOTIFY_CLIENT_ID not set in Environment Variables");

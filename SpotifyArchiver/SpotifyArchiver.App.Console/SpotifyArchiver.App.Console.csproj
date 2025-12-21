@@ -18,7 +18,7 @@
   <ItemGroup>
     <ProjectReference Include="..\SpotifyArchiver.Application.Implementation\SpotifyArchiver.Application.Implementation.csproj" />
     <ProjectReference Include="..\SpotifyArchiver.DataAccess.Implementation\SpotifyArchiver.DataAccess.Implementation.csproj" />
-    <ProjectReference Include="..\SpotifyArchiver.Presentation\SpotifyArchiver.Presentation.csproj" />
+    <ProjectReference Include="..\SpotifyArchiver.Presentation.Console\SpotifyArchiver.Presentation.Console.csproj" />
   </ItemGroup>
 
 </Project>

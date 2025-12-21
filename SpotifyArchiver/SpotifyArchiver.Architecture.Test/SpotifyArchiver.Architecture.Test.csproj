@@ -25,7 +25,6 @@
     <ProjectReference Include="..\SpotifyArchiver.DataAccess.Implementation\SpotifyArchiver.DataAccess.Implementation.csproj" />
     <ProjectReference Include="..\SpotifyArchiver.DataAccess.Test\SpotifyArchiver.DataAccess.Test.csproj" />
     <ProjectReference Include="..\SpotifyArchiver.Presentation.Test\SpotifyArchiver.Presentation.Test.csproj" />
-    <ProjectReference Include="..\SpotifyArchiver.Presentation\SpotifyArchiver.Presentation.csproj" />
   </ItemGroup>
 
   <ItemGroup>

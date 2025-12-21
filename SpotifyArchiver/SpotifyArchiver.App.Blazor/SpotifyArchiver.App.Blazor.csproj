@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <BlazorDisableThrowNavigationException>true</BlazorDisableThrowNavigationException>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SpotifyArchiver.Application.Implementation\SpotifyArchiver.Application.Implementation.csproj" />
+    <ProjectReference Include="..\SpotifyArchiver.DataAccess.Implementation\SpotifyArchiver.DataAccess.Implementation.csproj" />
+    <ProjectReference Include="..\SpotifyArchiver.Presentation.Playlists\SpotifyArchiver.Presentation.Playlists.csproj" />
+    <ProjectReference Include="..\SpotifyArchiver.Presentation.Shared\SpotifyArchiver.Presentation.Shared.csproj" />
+    <PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="3.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="10.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.0" />
+  </ItemGroup>
+
+</Project>

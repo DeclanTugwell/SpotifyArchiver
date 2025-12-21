@@ -1,0 +1,14 @@
+﻿@page "/"
+@using SpotifyArchiver.Presentation.Playlists.Components
+
+<PageTitle>Home</PageTitle>
+
+<DataView Contents="@_dataViewContents"></DataView>
+
+<div>
+    <OperationButton ButtonText="List Playlists" OnClick="@QueryPlaylists"></OperationButton>
+    <OperationButton ButtonText="Archive Playlist"></OperationButton>
+    <OperationButton ButtonText="List Archived Playlists" OnClick="@QueryArchivedPlaylists"></OperationButton>
+    <OperationButton ButtonText="List Songs From Archived Playlists"></OperationButton>
+    <OperationButton ButtonText="Remove Archived Playlist"></OperationButton>
+</div>
