@@ -1,6 +1,6 @@
 <Solution>
   <Folder Name="/Apps/">
-    <Project Path="SpotifyArchiver.App.Blazor/SpotifyArchiver.App.Blazor.csproj" Id="774ecd06-3d8e-4f50-bb58-2b86eb14961f" />
+    <Project Path="SpotifyArchiver.App.Blazor/SpotifyArchiver.App.Blazor.csproj" Id="1fbd35e4-d5f5-47cb-8450-baa54cfb1c70" />
     <Project Path="SpotifyArchiver.App.Console/SpotifyArchiver.App.Console.csproj" />
   </Folder>
   <Folder Name="/SpotifyArchiver.Application/">

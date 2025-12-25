@@ -2,6 +2,7 @@
 using SpotifyArchiver.Application.Abstraction;
 using SpotifyArchiver.DataAccess.Abstraction;
 using SpotifyArchiver.DataAccess.Abstraction.entities;
+using System.Diagnostics;
 
 namespace SpotifyArchiver.Presentation.Playlists.Pages
 {
@@ -10,7 +11,39 @@ namespace SpotifyArchiver.Presentation.Playlists.Pages
         [Inject] private ISpotifyService SpotifyService { get; init; } = default!;
         [Inject] private IPlaylistRepository PlaylistRepository { get; init; } = default!;
 
-        private string _dataViewContents
+        private List<Playlist> Playlists
+        {
+            get;
+            set
+            {
+                field = value;
+                SelectedDisplayMode = nameof(Playlists);
+                StateHasChanged();
+            }
+        } = [];
+
+        private List<Track> Tracks
+        {
+            get;
+            set
+            {
+                field = value;
+                SelectedDisplayMode = nameof(Tracks);
+                StateHasChanged();
+            }
+        }
+
+        private string SelectedDisplayMode
+        {
+            get;
+            set
+            {
+                field = value;
+                StateHasChanged();
+            }
+        } = nameof(Playlists);
+
+        private string DataViewContents
         {
             get;
             set
@@ -20,23 +53,21 @@ namespace SpotifyArchiver.Presentation.Playlists.Pages
             }
         } = string.Empty;
 
-        public async Task<bool> TryAuthenticate(CancellationToken token)
+        private Playlist? SelectedPlaylist { get; set; }
+
+        private Track? SelectedTrack { get; set; }
+
+        protected override async Task OnInitializedAsync()
         {
-            return await SpotifyService.TryAuthenticateAsync(token);
+            await SpotifyService.TryAuthenticateAsync(CancellationToken.None);
+            ClearOutput();
         }
-
-        private void AppendToOutput(string output)
-        {
-            _dataViewContents += output + Environment.NewLine;
-        }
-
-        private void ClearOutput() => _dataViewContents = string.Empty;
-
-
+        
         private async Task QueryPlaylists()
         {
             ClearOutput();
             var playlists = await SpotifyService.GetPlaylistsAsync();
+            Playlists = playlists;
             AppendToOutput("Your Playlists:\n\n");
             foreach (var playlist in playlists)
             {
@@ -44,10 +75,15 @@ namespace SpotifyArchiver.Presentation.Playlists.Pages
             }
         }
 
-        private async Task ArchivePlaylist(Playlist targetPlaylist)
+        private async Task ArchivePlaylist()
         {
+            if (SelectedPlaylist == null)
+            {
+                return;
+            }
+
             ClearOutput();
-            var playlistId = targetPlaylist.SpotifyId;
+            var playlistId = SelectedPlaylist.SpotifyId;
             await SpotifyService.ArchivePlaylist(playlistId);
 
             AppendToOutput("Playlist archived successfully.\n");
@@ -60,10 +96,12 @@ namespace SpotifyArchiver.Presentation.Playlists.Pages
 
             if (playlists.Any() == false)
             {
+                Playlists = [];
                 AppendToOutput("No Playlists Archived.");
                 return;
             }
 
+            Playlists = playlists;
             AppendToOutput("Your Archived Playlists:\n");
 
             foreach (var playlist in playlists)
@@ -72,10 +110,15 @@ namespace SpotifyArchiver.Presentation.Playlists.Pages
             }
         }
 
-        private async Task FetchAllSongsFromArchivedPlaylist(Playlist targetPlaylist)
+        private async Task FetchAllSongsFromArchivedPlaylist()
         {
+            if (SelectedPlaylist == null)
+            {
+                return;
+            }
+
             ClearOutput();
-            var playlistId = targetPlaylist.PlaylistId;
+            var playlistId = SelectedPlaylist.PlaylistId;
             var playlist = await PlaylistRepository.FetchByIdAsync(playlistId);
 
             if (playlist == null)
@@ -84,6 +127,7 @@ namespace SpotifyArchiver.Presentation.Playlists.Pages
                 return;
             }
 
+            Tracks = playlist.Tracks.ToList();
             AppendToOutput($"Songs in Playlist: {playlist.Name}\n");
 
             var count = 0;
@@ -94,13 +138,35 @@ namespace SpotifyArchiver.Presentation.Playlists.Pages
             }
         }
 
-        private async Task RemovedArchivedPlaylist(Playlist targetPlaylist)
+        private async Task RemovedArchivedPlaylist()
         {
+            if (SelectedPlaylist == null)
+            {
+                return;
+            }
+            
             ClearOutput();
-            var playlistId = targetPlaylist.PlaylistId;
+            var playlistId = SelectedPlaylist.PlaylistId;
             await PlaylistRepository.RemovePlaylistByIdAsync(playlistId);
-
+            await QueryArchivedPlaylists();
             AppendToOutput($"Playlist Removed: {playlistId}");
         }
+
+        private void OnPlaylistSelected(Playlist playlist)
+        {
+            SelectedPlaylist = playlist;
+        }
+
+        private void OnTrackSelected(Track track)
+        {
+            SelectedTrack = track;
+        }
+        
+        private void AppendToOutput(string output)
+        {
+            DataViewContents += output + Environment.NewLine;
+        }
+
+        private void ClearOutput() => DataViewContents = string.Empty;
     }
 }

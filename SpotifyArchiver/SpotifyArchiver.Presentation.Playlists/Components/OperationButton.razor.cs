@@ -5,7 +5,7 @@ namespace SpotifyArchiver.Presentation.Playlists.Components
     public partial class OperationButton
     {
         [Parameter]
-        public Func<Task> OnClick { get; set; } = async () => { await Task.CompletedTask; };
+        public EventCallback OnClicked { get; set; }
 
         [Parameter]
         public string ButtonText { get; set; } = string.Empty;
@@ -15,10 +15,12 @@ namespace SpotifyArchiver.Presentation.Playlists.Components
         private async Task HandleClick()
         {
             _isLoading = true;
-            StateHasChanged();
-            await OnClick.Invoke();
+            await InvokeAsync(StateHasChanged);
+
+            await OnClicked.InvokeAsync();
+
             _isLoading = false;
-            StateHasChanged();
+            await InvokeAsync(StateHasChanged);
         }
     }
 }

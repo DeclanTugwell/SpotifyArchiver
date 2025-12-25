@@ -1,0 +1,18 @@
+.scroll-list {
+    height: 500px; /* controls visible height */
+    overflow-y: auto; /* enables vertical scrolling */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin: 20px
+}
+
+
+.list-item {
+    box-shadow: 2px 2px 7px 1px #000f;
+    margin: 4px;
+}
+
+.list-item.selected {
+    background-color: #0078d4;
+    color: white;
+}

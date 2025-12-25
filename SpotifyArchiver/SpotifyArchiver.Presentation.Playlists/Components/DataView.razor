@@ -1,3 +1,48 @@
-﻿<div>
-    <textarea>@Contents</textarea>
-</div>
+﻿@if (DisplayType == nameof(Playlists))
+{
+    <div class="scroll-list">
+        @if (Playlists.Any() == false)
+        {
+            <div>No Playlists to Display</div>
+        }
+        @foreach (var playlist in Playlists)
+        {
+            <div class="list-item @(playlist == SelectedPlaylist ? "selected" : "")"
+                 @onclick="() => PlaylistSelected(playlist)"
+                 onmouseover="@playlist.SpotifyId">
+                <div>
+                    Name: @playlist.Name
+                </div>
+                <div>
+                    Uri: @playlist.SpotifyUri
+                </div>
+            </div>
+        }
+    </div>
+}
+else if (DisplayType == nameof(Tracks))
+{
+    <div class="scroll-list">
+        @if (Tracks.Any() == false)
+        {
+            <div>No Tracks to Display</div>
+        }
+        @foreach (var track in Tracks)
+        {
+            <div class="list-item @(track == SelectedTrack ? "selected" : "")"
+                 @onclick="() => TrackSelected(track)"
+                 onmouseover="@track.SpotifyId">
+                <div>
+                    Name: @track.Name
+                </div>
+                <div>
+                    Uri: @track.SpotifyUri
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <div>Nothing Selected.</div>
+}

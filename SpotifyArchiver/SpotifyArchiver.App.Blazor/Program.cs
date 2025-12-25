@@ -1,20 +1,23 @@
 using Microsoft.EntityFrameworkCore;
 using SpotifyArchiver.App.Blazor;
+using SpotifyArchiver.App.Blazor.Components;
 using SpotifyArchiver.Application.Abstraction;
 using SpotifyArchiver.Application.Implementation;
 using SpotifyArchiver.DataAccess.Abstraction;
 using SpotifyArchiver.DataAccess.Implementation;
+using SQLitePCL;
 
 var clientId = Environment.GetEnvironmentVariable("SPOTIFY_CLIENT_ID") ?? throw new InvalidOperationException("SPOTIFY_CLIENT_ID not set in Environment Variables");
 var redirectUri = Environment.GetEnvironmentVariable("SPOTIFY_REDIRECT_URI") ?? throw new InvalidOperationException("SPOTIFY_REDIRECT_URI not set in Environment Variables");
 var configPath = "spotify_tokens.json";
+
+Batteries.Init();
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
-
 builder.Services.AddDbContext<MusicDbContext>(options =>
     options.UseSqlite("Data Source=music.db"));
 
@@ -41,6 +44,7 @@ app.UseAntiforgery();
 
 app.MapStaticAssets();
 app.MapRazorComponents<App>()
+    .AddAdditionalAssemblies(UiAssemblyRegistry.RegisteredAssemblies)
     .AddInteractiveServerRenderMode();
 
 using (var scope = app.Services.CreateScope())
@@ -50,3 +54,5 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.Run();
+
+

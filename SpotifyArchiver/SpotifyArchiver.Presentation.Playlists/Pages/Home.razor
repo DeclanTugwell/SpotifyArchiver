@@ -1,14 +1,21 @@
 ﻿@page "/"
 @using SpotifyArchiver.Presentation.Playlists.Components
+@rendermode InteractiveServer
+
 
 <PageTitle>Home</PageTitle>
-
-<DataView Contents="@_dataViewContents"></DataView>
-
 <div>
-    <OperationButton ButtonText="List Playlists" OnClick="@QueryPlaylists"></OperationButton>
-    <OperationButton ButtonText="Archive Playlist"></OperationButton>
-    <OperationButton ButtonText="List Archived Playlists" OnClick="@QueryArchivedPlaylists"></OperationButton>
-    <OperationButton ButtonText="List Songs From Archived Playlists"></OperationButton>
-    <OperationButton ButtonText="Remove Archived Playlist"></OperationButton>
+    <OperationButton ButtonText="List Playlists" OnClicked="@QueryPlaylists"></OperationButton>
+    <OperationButton ButtonText="List Archived Playlists" OnClicked="@QueryArchivedPlaylists"></OperationButton>
 </div>
+
+<DataView DisplayType="@SelectedDisplayMode" Playlists="@Playlists" Tracks="@Tracks" OnPlaylistSelected="@OnPlaylistSelected" OnTrackSelected="@OnTrackSelected"></DataView>
+
+@if (SelectedPlaylist != null)
+{
+    <div>
+        <OperationButton ButtonText="Archive Playlist" OnClicked="@ArchivePlaylist"></OperationButton>
+        <OperationButton ButtonText="List Songs From Archived Playlists" OnClicked="@FetchAllSongsFromArchivedPlaylist"></OperationButton>
+        <OperationButton ButtonText="Remove Archived Playlist" OnClicked="@RemovedArchivedPlaylist"></OperationButton>
+    </div>
+}
